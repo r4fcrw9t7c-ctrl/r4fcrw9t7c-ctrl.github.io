@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en-AU" class="js">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terminal · Realm HQ</title>
+  <meta name="description" content="Operative terminal. Request a one-time access link, check your clearance, referral progress, and Vault status." />
+  <meta name="theme-color" content="#0a0806" />
+  <meta name="robots" content="noindex" />
+  <link rel="icon" href="assets/favicon-64.png" type="image/png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&display=swap" rel="stylesheet" />
+  <style>
+    :root{ --void:#0B0B0F; --bone:#F5F1E8; --bone-dim:#a8a8a8; --bone-faint:#6b6b6b; --gold:#D4AF37; --gold-hot:#F0C548; --hazard:#22D3EE; --danger:#FF2B9C; }
+    *{ box-sizing:border-box; }
+    html,body{ margin:0; padding:0; background:var(--void); color:var(--bone); font-family:'Space Grotesk',system-ui,sans-serif; }
+    body{ position:relative; min-height:100vh; }
+    body::before{ content:""; position:fixed; inset:0; background:repeating-linear-gradient(0deg,transparent 0,transparent 3px,rgba(255,255,255,.012) 3px,rgba(255,255,255,.012) 4px); pointer-events:none; z-index:1; }
+    .wrap{ position:relative; z-index:2; max-width:760px; margin:0 auto; padding:56px 24px 96px; }
+    .back{ display:inline-flex; gap:8px; color:var(--bone-dim); font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.2em; text-transform:uppercase; text-decoration:none; margin-bottom:36px; }
+    .back:hover{ color:var(--gold); }
+    .file-no{ font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.24em; color:var(--gold); margin-bottom:12px; }
+    h1{ font-family:'Cormorant Garamond',serif; font-weight:500; font-size:clamp(38px,6vw,58px); line-height:1.05; margin:0 0 14px; }
+    h1 .glow{ color:var(--gold); font-style:italic; }
+    .sub{ font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--bone-faint); margin-bottom:40px; padding-bottom:20px; border-bottom:1px dashed rgba(212,175,55,.25); }
+    .panel{ border:1px solid rgba(212,175,55,.22); background:rgba(255,255,255,.015); padding:28px 26px; margin-bottom:20px; }
+    label{ display:block; font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.24em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; }
+    input[type=email]{ width:100%; padding:14px 16px; background:rgba(11,11,15,.6); border:1px solid rgba(212,175,55,.3); color:var(--bone); font-family:'JetBrains Mono',monospace; font-size:14px; }
+    input[type=email]:focus{ outline:none; border-color:var(--gold); }
+    .btn{ display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:13px 20px; border:1px solid var(--gold); background:var(--gold); color:var(--void); font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.2em; text-transform:uppercase; cursor:pointer; text-decoration:none; transition:background .18s,color .18s; }
+    .btn:hover{ background:transparent; color:var(--gold); }
+    .btn.ghost{ background:transparent; color:var(--gold); }
+    .btn.ghost:hover{ background:var(--gold); color:var(--void); }
+    .btn:disabled{ opacity:.5; cursor:not-allowed; }
+    .msg{ font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.05em; line-height:1.7; margin-top:16px; min-height:16px; }
+    .msg.ok{ color:var(--hazard); } .msg.err{ color:var(--danger); }
+    .hp{ position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
+    .row{ display:flex; justify-content:space-between; align-items:baseline; gap:12px; padding:12px 0; border-bottom:1px dashed rgba(212,175,55,.18); }
+    .row:last-child{ border-bottom:none; }
+    .row .k{ font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--bone-faint); }
+    .row .v{ font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--bone); text-align:right; }
+    .row .v.gold{ color:var(--gold); }
+    .code{ display:inline-block; padding:6px 12px; border:1px solid var(--gold); color:var(--gold); font-family:'JetBrains Mono',monospace; letter-spacing:.14em; cursor:pointer; }
+    .prog{ height:8px; background:rgba(255,255,255,.06); border:1px solid rgba(212,175,55,.2); margin:10px 0 6px; }
+    .prog > i{ display:block; height:100%; background:var(--gold); }
+    .hint{ font-size:12.5px; line-height:1.7; color:var(--bone-dim); margin:0; }
+    .panel h2{ font-family:'Cormorant Garamond',serif; font-weight:600; font-size:26px; margin:0 0 14px; }
+    .tag{ display:inline-block; font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:.24em; text-transform:uppercase; padding:4px 10px; border:1px solid rgba(212,175,55,.35); color:var(--gold); margin-bottom:14px; }
+    .actions{ display:flex; flex-wrap:wrap; gap:12px; margin-top:18px; }
+    .hidden{ display:none !important; }
+    .foot{ margin-top:40px; padding-top:24px; border-top:1px solid rgba(212,175,55,.2); font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--bone-faint); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+    .foot .seal{ color:var(--gold); }
+    a.link{ color:var(--gold); text-decoration:none; border-bottom:1px dashed var(--gold); }
+  </style>
+  <link rel="stylesheet" href="assets/css/nav.css" />
+  <link rel="stylesheet" href="assets/css/fx.css" />
+  <link rel="stylesheet" href="assets/css/fx2.css" />
+  <link rel="stylesheet" href="assets/css/fx3.css" />
+  <link rel="stylesheet" href="assets/css/fx4.css">
+  <link rel="stylesheet" href="assets/css/fx5.css">
+<link rel="canonical" href="https://shadowrealmhq.com/terminal" />
+  <script defer data-domain="shadowrealmhq.com" src="https://plausible.io/js/script.outbound-links.js"></script>
+  <!-- social: realm hq -->
+  <meta property="og:site_name" content="Realm HQ" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="en_AU" />
+  <meta property="og:title" content="Terminal · Realm HQ" />
+  <meta property="og:description" content="Operative terminal. Request a one-time access link, check your clearance, referral progress, and Vault status." />
+  <meta property="og:url" content="https://shadowrealmhq.com/terminal" />
+  <meta property="og:image" content="https://shadowrealmhq.com/assets/og-card.jpg" />
+  <meta property="og:image:secure_url" content="https://shadowrealmhq.com/assets/og-card.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="SHADOW REALM — Realm Certified. Officially unofficial." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Terminal · Realm HQ" />
+  <meta name="twitter:description" content="Operative terminal. Request a one-time access link, check your clearance, referral progress, and Vault status." />
+  <meta name="twitter:image" content="https://shadowrealmhq.com/assets/og-card.jpg" />
+  <meta name="twitter:image:alt" content="SHADOW REALM — Realm Certified. Officially unofficial." />
+</head>
+<body>
+  <!-- Header (shared markup, assets/css/nav.css + assets/js/nav.js) -->
+  <header class="hdr-lite" id="hdrLite">
+    <a class="hdr-lite-brand" href="index.html" aria-label="Realm HQ home">
+      <img src="assets/logo-crown.png" alt="" width="34" height="34" />
+      <span>SHADOW REALM<small>REALM HQ · TERMINAL</small></span>
+    </a>
+    <nav class="hdr-lite-nav" aria-label="Primary">
+        <a href="shop.html">Shop</a>
+        <a href="music.html">Music</a>
+        <a href="quiz.html">Quiz</a>
+        <a href="vault.html">Vault</a>
+        <a href="terminal.html" class="is-active">Terminal</a>
+        <a href="index.html#personnel">Personnel</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+    <div class="hdr-lite-status" aria-live="off">
+      <span class="dot" aria-hidden="true"></span><span class="label-full">SIGNAL:&nbsp;</span><span class="status-word" data-fx-status>RECEIVING</span>
+    </div>
+    <button class="hdr-burger" id="hdrBurger" type="button" aria-expanded="false"
+            aria-controls="hdrDrawer" aria-label="Open navigation">
+      <span></span><span></span><span></span>
+    </button>
+    <span class="hdr-lite-depth" id="hdrDepth" aria-hidden="true"></span>
+  </header>
+
+<div class="hdr-drawer" id="hdrDrawer" role="dialog" aria-modal="true" aria-label="Realm HQ navigation" aria-hidden="true">
+    <div class="hdr-drawer-head">
+      <span class="hdr-drawer-tag">REALM HQ · ACCESS PANEL</span>
+      <button class="hdr-drawer-close" type="button" aria-label="Close navigation">✕</button>
+    </div>
+    <nav class="hdr-drawer-nav" aria-label="Mobile primary">
+      <a href="shop.html">Shop</a>
+      <a href="music.html">Music</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="vault.html">Vault</a>
+      <a href="index.html#personnel">Personnel</a>
+      <a href="index.html#feed">Live Feed</a>
+      <a href="index.html#tiers">Clearance</a>
+      <a href="terminal.html" class="is-active">Terminal</a>
+      <a href="contact.html">Contact</a>
+      <a href="index.html#enlist">Enlist</a>
+    </nav>
+    <div class="hdr-drawer-foot">
+      <span>EST DAY 5</span>
+      <span>CLASSIFICATION: COOKED</span>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="file-no">FILE TRM-001 · OPERATIVE TERMINAL</div>
+    <h1>The <span class="glow">Terminal</span>.</h1>
+    <div class="sub">PASSWORDLESS ACCESS · SESSION-BOUND · EST DAY 5</div>
+
+    <!-- Request link -->
+    <section class="panel" id="requestPanel">
+      <span class="tag">STEP 01 · IDENTIFY</span>
+      <h2>Request access.</h2>
+      <p class="hint">Enter the line you enlisted on. HQ sends a one-time link that opens your record. No password. The link expires in 20 minutes and burns after one use.</p>
+      <form id="reqForm" style="margin-top:20px;" novalidate>
+        <label for="email">Operative email</label>
+        <input id="email" type="email" name="email" autocomplete="email" placeholder="you@somewhere.au" required />
+        <div class="hp" aria-hidden="true"><label>Leave blank<input type="text" name="company" tabindex="-1" autocomplete="off" /></label></div>
+        <div class="actions"><button class="btn" type="submit" id="reqBtn">Transmit access link</button></div>
+        <div class="msg" id="reqMsg" role="status" aria-live="polite"></div>
+      </form>
+    </section>
+
+    <!-- Verifying -->
+    <section class="panel hidden" id="verifyPanel">
+      <span class="tag">STEP 02 · VERIFY</span>
+      <h2>Opening the Terminal…</h2>
+      <p class="hint" id="verifyMsg">Confirming the link with HQ. Stand by.</p>
+    </section>
+
+    <!-- Dashboard -->
+    <section class="hidden" id="dashPanel">
+      <div class="panel">
+        <span class="tag" id="tierTag">CLEARANCE</span>
+        <h2 id="dashHello">Operative record.</h2>
+        <div class="row"><span class="k">Line</span><span class="v" id="mEmail">·</span></div>
+        <div class="row"><span class="k">Standing clearance</span><span class="v gold" id="mTier">·</span></div>
+        <div class="row"><span class="k">Vault</span><span class="v" id="mVault">·</span></div>
+        <div class="row"><span class="k">Member since</span><span class="v" id="mSince">·</span></div>
+      </div>
+
+      <div class="panel">
+        <span class="tag">REFERRAL REGISTER</span>
+        <h2>Recruit two, unseal the Vault.</h2>
+        <div class="row"><span class="k">Your code</span><span class="v"><span class="code" id="mCode" title="Copy">·</span></span></div>
+        <div class="prog" aria-hidden="true"><i id="mProg" style="width:0%"></i></div>
+        <p class="hint" id="mRefText">·</p>
+        <div class="actions"><button class="btn ghost" id="copyLink">Copy share link</button></div>
+      </div>
+
+      <div class="panel" id="vaultPanel">
+        <span class="tag">THE VAULT</span>
+        <h2 id="vaultHead">Vault status.</h2>
+        <p class="hint" id="vaultText">·</p>
+        <div class="actions"><a class="btn" id="vaultBtn" href="vault.html">Enter the Vault</a></div>
+      </div>
+
+      <div class="panel" id="billingPanel">
+        <span class="tag">BILLING</span>
+        <h2>Manage clearance.</h2>
+        <p class="hint">Update payment, change tier, or stand down. Opens the secure Stripe billing portal.</p>
+        <div class="actions">
+          <button class="btn ghost" id="billingBtn">Open billing portal</button>
+          <button class="btn ghost" id="logoutBtn">Sign out</button>
+        </div>
+        <div class="msg" id="dashMsg" role="status" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <div class="foot">
+      <span>FILE TRM-001 · ACTIVE</span>
+      <span class="seal">REALM HQ · SESSION ROOM</span>
+    </div>
+  </div>
+
+<script src="assets/js/realm.js"></script>
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/page-terminal.js"></script>
+<script src="assets/js/fx.js" defer></script>
+<script src="assets/js/fx2.js" defer></script>
+<script src="assets/js/fx3.js" defer></script>
+<script src="assets/js/fx4.js" defer></script>
+<script src="assets/js/fx5.js" defer></script>
+</body>
+</html>

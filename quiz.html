@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en-AU" class="js">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Realm Certified Quiz · Clearance Assessment</title>
+  <meta name="description" content="Six questions between you and Realm Certified status. Upload a photo. Download the certificate. Officially unofficial." />
+  <meta name="theme-color" content="#0a0806" />
+  <link rel="icon" href="assets/favicon-64.png" type="image/png" />
+  <!-- v6-icons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link rel="canonical" href="https://shadowrealmhq.com/quiz" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="assets/vendor/html2canvas.min.js" integrity="sha384-ZZ1pncU3bQe8y31yfZdMFdSpttDoPmOZg2wguVK9almUodir1PghgT0eY7Mrty8H" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="assets/css/nav.css" />
+  <link rel="stylesheet" href="assets/css/fx.css" />
+  <link rel="stylesheet" href="assets/css/fx2.css" />
+  <link rel="stylesheet" href="assets/css/fx3.css" />
+  <link rel="stylesheet" href="assets/css/fx4.css">
+  <link rel="stylesheet" href="assets/css/fx5.css">
+  <script defer data-domain="shadowrealmhq.com" src="https://plausible.io/js/script.outbound-links.js"></script>
+  <!-- social: realm hq -->
+  <meta property="og:site_name" content="Realm HQ" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="en_AU" />
+  <meta property="og:title" content="Realm Certified Quiz · Clearance Assessment" />
+  <meta property="og:description" content="Six questions between you and Realm Certified status. Upload a photo. Download the certificate. Officially unofficial." />
+  <meta property="og:url" content="https://shadowrealmhq.com/quiz" />
+  <meta property="og:image" content="https://shadowrealmhq.com/assets/og-card.jpg" />
+  <meta property="og:image:secure_url" content="https://shadowrealmhq.com/assets/og-card.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="SHADOW REALM — Realm Certified. Officially unofficial." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Realm Certified Quiz · Clearance Assessment" />
+  <meta name="twitter:description" content="Six questions between you and Realm Certified status. Upload a photo. Download the certificate. Officially unofficial." />
+  <meta name="twitter:image" content="https://shadowrealmhq.com/assets/og-card.jpg" />
+  <meta name="twitter:image:alt" content="SHADOW REALM — Realm Certified. Officially unofficial." />
+</head>
+<body class="page-loaded page-subpage">
+<main class="site">
+
+  <!-- Subpage header -->
+  <header class="subpage-header">
+    <a href="index.html" class="hdr-brand" aria-label="Realm HQ home">
+      <img src="assets/logo-crown.png" alt="" />
+      <span class="hdr-brand-txt">
+        SHADOW REALM
+        <small>REALM HQ · CLEARANCE INTAKE</small>
+      </span>
+    </a>
+    <nav class="hdr-nav" aria-label="Primary">
+      <a href="index.html#drop">Drops</a>
+      <a href="index.html#field">Field Issue</a>
+      <a href="music.html">Music</a>
+      <a href="quiz.html" class="is-active">Quiz</a>
+      <a href="index.html#lore">Vault</a>
+      <a href="index.html#personnel">Personnel</a>
+      <a href="index.html#feed">Live Feed</a>
+    </nav>
+    <div class="hdr-status" aria-live="polite">
+      <span class="dot"></span> <span class="label-full">INTAKE:&nbsp;</span><span class="status-word" id="statusWord">OPEN</span>
+    </div>
+    <button class="hdr-burger" id="hdrBurger" type="button" aria-expanded="false" aria-controls="hdrDrawer" aria-label="Open navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- Mobile drawer -->
+  <div class="hdr-drawer" id="hdrDrawer" role="dialog" aria-modal="true" aria-label="Realm HQ navigation" aria-hidden="true">
+    <div class="hdr-drawer-head">
+      <span class="hdr-drawer-tag">REALM HQ · ACCESS PANEL</span>
+      <button class="hdr-drawer-close" type="button" aria-label="Close navigation">✕</button>
+    </div>
+    <nav class="hdr-drawer-nav" aria-label="Mobile primary">
+      <a href="index.html#drop">Drops</a>
+      <a href="index.html#field">Field Issue</a>
+      <a href="music.html">Music</a>
+      <a href="quiz.html" class="is-active">Quiz</a>
+      <a href="index.html#lore">Vault</a>
+      <a href="index.html#personnel">Personnel</a>
+      <a href="index.html#feed">Live Feed</a>
+      <a href="index.html#tiers">Clearance</a>
+      <a href="contact.html">Contact</a>
+      <a href="index.html#enlist">Enlist</a>
+    </nav>
+    <div class="hdr-drawer-foot">
+      <span>EST DAY 5</span>
+      <span>CLASSIFICATION: COOKED</span>
+    </div>
+  </div>
+
+  <!-- Quiz hero -->
+  <section class="quiz-hero">
+    <div class="quiz-hero-inner">
+      <div class="hero-file-tag">
+        FORM 005-Q · CLEARANCE ASSESSMENT <span class="redact">INTERNAL USE</span>
+      </div>
+      <h1>
+        Six questions.<br />
+        One <span class="glow">certificate.</span>
+      </h1>
+      <p>
+        Answer honestly. Realm HQ can tell when you're guessing. Upload a photo,
+        pass the assessment, and walk away with an official-looking document
+        nobody's really allowed to check.
+      </p>
+    </div>
+  </section>
+
+  <!-- Quiz body -->
+  <section class="tracks" id="quiz-section">
+    <div class="tracks-inner">
+
+      <!-- QUESTIONS PANEL -->
+      <div class="quiz-panel" id="quizPanel">
+        <div class="quiz-progress">
+          <span id="quizStep">QUESTION 01 / 06</span>
+          <span id="quizStatus">ASSESSMENT ACTIVE</span>
+        </div>
+        <div class="quiz-bar"><div class="quiz-bar-fill" id="quizBar"></div></div>
+
+        <div class="quiz-q" id="quizQ">
+          <h2 id="quizQTitle">Loading question...</h2>
+          <div class="quiz-options" id="quizOptions"></div>
+        </div>
+
+        <div class="quiz-nav">
+          <button class="btn btn-ghost" type="button" id="quizBack" disabled>Back</button>
+          <button class="btn" type="button" id="quizNext" disabled>Next →</button>
+        </div>
+      </div>
+
+      <!-- IDENTITY PANEL (photo + name) -->
+      <div class="quiz-panel" id="identityPanel" hidden>
+        <div class="quiz-progress">
+          <span>FINAL STEP · IDENTITY</span>
+          <span>NEARLY THERE</span>
+        </div>
+        <div class="quiz-bar"><div class="quiz-bar-fill" style="width:100%"></div></div>
+
+        <div class="quiz-q">
+          <h2>Operative details.</h2>
+          <p class="section-lede" style="margin-bottom:20px">
+            Name on the certificate and a photo of the face going on it.
+            Uploads stay in your browser. Nothing gets sent anywhere.
+          </p>
+
+          <label class="quiz-upload" id="quizUpload" for="quizPhoto">
+            <div class="quiz-upload-preview" id="quizPreview"></div>
+            <div class="quiz-upload-label" id="quizUploadLabel">TAP TO UPLOAD OPERATIVE PHOTO</div>
+            <div class="quiz-upload-hint">JPG or PNG · Kept locally · Straight face optional</div>
+            <input type="file" id="quizPhoto" accept="image/*" />
+          </label>
+
+          <input type="text" class="quiz-name-input" id="quizName" placeholder="OPERATIVE NAME (e.g. K. HARVEY)" maxlength="42" autocomplete="off" />
+        </div>
+
+        <div class="quiz-nav">
+          <button class="btn btn-ghost" type="button" id="identityBack">← Back</button>
+          <button class="btn" type="button" id="identitySubmit" disabled>Issue Certificate</button>
+        </div>
+      </div>
+
+      <!-- CERTIFICATE PANEL -->
+      <div class="cert-wrap" id="certPanel" hidden>
+        <div class="cert-note">TRANSMISSION COMPLETE · CERTIFICATE ISSUED</div>
+
+        <div class="certificate" id="certificate">
+          <div class="cert-head">
+            <div class="cert-crest"><img src="assets/logo-crown.png" alt="Realm HQ crest" /></div>
+            <div class="cert-file">
+              FILE REF <strong id="certFileRef">RC-0000</strong>
+              EST DAY 5 · NSW
+            </div>
+          </div>
+
+          <div class="cert-body">
+            <div class="cert-kicker">SHADOW REALM · CERTIFICATE OF CLEARANCE</div>
+            <div class="cert-name" id="certName">OPERATIVE UNKNOWN</div>
+            <div class="cert-status" id="certStatus">STATUS PENDING</div>
+            <div class="cert-desc" id="certDesc">Assessment result loading.</div>
+          </div>
+
+          <div class="cert-photo empty" id="certPhoto">NO PHOTO<br />ON FILE</div>
+
+          <div class="cert-foot" style="grid-column:1 / -1; display:flex; justify-content:space-between; align-items:flex-end; border-top:1px solid rgba(200,162,74,.3); padding-top:14px; font-family:var(--font-mono); font-size:10px; letter-spacing:.22em; color:var(--bone-dim); text-transform:uppercase;">
+            <div class="cert-sig">
+              <div style="font-size:22px; font-family:var(--font-display); font-style:italic; color:var(--gold); letter-spacing:0; text-transform:none; margin-bottom:2px;">M. Crestwood</div>
+              REGISTRAR · REALM HQ
+            </div>
+            <div style="text-align:right">
+              CLASSIFICATION: <span style="color:var(--gold)" id="certClass">COOKED</span><br />
+              ISSUED <span id="certDate">00·00·0000</span><br />
+              <span id="certVerify"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="cert-actions" style="display:flex; gap:12px; justify-content:center; margin-top:24px; flex-wrap:wrap;">
+          <button class="btn" type="button" id="certDownload">Download PNG</button>
+          <button class="btn" type="button" id="certShare" hidden>Share</button>
+          <button class="btn btn-ghost" type="button" id="certRestart">Start over</button>
+        </div>
+
+        <p class="tracks-fine" style="text-align:center; margin-top:20px;">
+          Share the PNG on socials. Tag Realm HQ. Screenshot works too. HQ doesn't discriminate against low-tech operatives.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="assets/logo-crown.png" alt="Realm HQ crest" />
+          <p>Shadow Realm HQ. Officially unofficial. Dispatched from NSW at hours that don't exist. Realm Certified since EST Day 5.</p>
+        </div>
+        <div class="footer-col">
+          <h5>REALM</h5>
+          <a href="shop.html">Shop</a>
+          <a href="vault.html">Vault</a>
+          <a href="terminal.html">Terminal</a>
+          <a href="index.html#personnel">Personnel</a>
+          <a href="certification.html">Certification</a>
+        </div>
+        <div class="footer-col">
+          <h5>SIGNAL</h5>
+          <a href="music.html">Music</a>
+          <a href="index.html#feed">Live Feed</a>
+          <a href="mailto:realmcertified@gmail.com">Contact</a>
+          <a href="https://www.instagram.com/realmcertified" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.tiktok.com/@realmcertified?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener">TikTok</a>
+        </div>
+        <div class="footer-col">
+          <h5>FINE PRINT</h5>
+          <a href="policy/shipping.html">Shipping</a>
+          <a href="policy/returns.html">Returns</a>
+          <a href="policy/terms.html">Terms</a>
+          <a href="policy/privacy.html">Privacy</a>
+        </div>
+      </div>
+      <div class="footer-bot">
+        <span>© SHADOW REALM · REALM CERTIFIED · EST DAY 5</span>
+        <span>hq@shadowrealmhq.com</span>
+      </div>
+    </div>
+  </footer>
+
+</main>
+
+<script src="assets/js/realm.js"></script>
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/page-quiz.js"></script>
+<script src="assets/js/fx.js" defer></script>
+<script src="assets/js/fx2.js" defer></script>
+<script src="assets/js/fx3.js" defer></script>
+<script src="assets/js/fx4.js" defer></script>
+<script src="assets/js/fx5.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,286 @@
+/* =========================================================
+   Realm HQ · shared header nav (hamburger + full-screen drawer)
+   Loaded by every page, including the self-contained ones that
+   do not ship style.css. Every custom property carries a literal
+   fallback so the drawer renders identically on both.
+   Markup contract: .hdr-burger#hdrBurger + .hdr-drawer#hdrDrawer,
+   driven by assets/js/nav.js. There is no second menu system.
+   ========================================================= */
+
+/* Hamburger button. Hidden by default (desktop). */
+.hdr-burger{
+  display:none;
+  background:transparent;
+  border:1px solid var(--border, #1c1c22);
+  color:var(--bone, #e8e4d4);
+  width:44px;
+  height:44px;
+  padding:0;
+  cursor:pointer;
+  position:relative;
+  border-radius:2px;
+  transition:border-color .18s ease, background .18s ease;
+}
+.hdr-burger:hover{ border-color:var(--gold, #D4AF37); background:rgba(255,255,255,.02); }
+.hdr-burger span{
+  position:absolute;
+  left:10px; right:10px;
+  height:1.5px;
+  background:var(--bone, #e8e4d4);
+  transition:transform .28s ease, opacity .2s ease, top .28s ease;
+}
+.hdr-burger span:nth-child(1){ top:14px; }
+.hdr-burger span:nth-child(2){ top:21px; }
+.hdr-burger span:nth-child(3){ top:28px; }
+.hdr-burger[aria-expanded="true"] span:nth-child(1){ top:21px; transform:rotate(45deg); }
+.hdr-burger[aria-expanded="true"] span:nth-child(2){ opacity:0; }
+.hdr-burger[aria-expanded="true"] span:nth-child(3){ top:21px; transform:rotate(-45deg); }
+
+/* Float variant: pages built without a site header (shop, vault,
+   terminal, access, lore, policy) pin the same button top-right. */
+.hdr-burger-float{
+  position:fixed;
+  top:12px; right:12px;
+  z-index:60;
+  background:rgba(5,5,6,.86);
+  backdrop-filter:blur(6px);
+}
+
+/* Drawer. Full-screen classified terminal. */
+.hdr-drawer{
+  position:fixed;
+  inset:0;
+  background:var(--void, #0B0B0F);
+  z-index:9998;
+  opacity:0;
+  visibility:hidden;
+  transition:opacity .28s ease, visibility .28s ease;
+  display:flex;
+  flex-direction:column;
+  overflow-y:auto;
+}
+.hdr-drawer.is-open{ opacity:1; visibility:visible; }
+.hdr-drawer::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(ellipse at 50% 20%, rgba(168,85,247,.08), transparent 60%),
+    repeating-linear-gradient(0deg, transparent 0, transparent 2px, rgba(255,255,255,.015) 2px, rgba(255,255,255,.015) 3px);
+  pointer-events:none;
+  z-index:0;
+}
+.hdr-drawer-head{
+  position:relative;
+  z-index:2;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:20px 24px;
+  border-bottom:1px solid var(--border, #1c1c22);
+}
+.hdr-drawer-tag{
+  font-family:'JetBrains Mono', monospace;
+  font-size:11px;
+  letter-spacing:.18em;
+  color:var(--gold, #D4AF37);
+  text-transform:uppercase;
+}
+.hdr-drawer-close{
+  background:transparent;
+  border:1px solid var(--border, #1c1c22);
+  color:var(--bone, #e8e4d4);
+  width:44px;
+  height:44px;
+  padding:0;
+  cursor:pointer;
+  border-radius:2px;
+  font-family:'JetBrains Mono', monospace;
+  font-size:20px;
+  line-height:1;
+  transition:border-color .18s ease, color .18s ease;
+}
+.hdr-drawer-close:hover{ border-color:var(--gold, #D4AF37); color:var(--gold, #D4AF37); }
+.hdr-drawer-nav{
+  position:relative;
+  z-index:2;
+  display:flex;
+  flex-direction:column;
+  padding:8px 0;
+  flex:1;
+}
+.hdr-drawer-nav a{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:20px 24px;
+  color:var(--bone, #e8e4d4);
+  font-family:'JetBrains Mono', monospace;
+  font-size:15px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  text-decoration:none;
+  border-bottom:1px solid rgba(212,175,55,.14);
+  transition:background .16s ease, color .16s ease, padding-left .18s ease;
+}
+.hdr-drawer-nav a:hover,
+.hdr-drawer-nav a:focus-visible{
+  background:rgba(212,175,55,.05);
+  color:var(--gold, #D4AF37);
+  padding-left:32px;
+  outline:none;
+}
+.hdr-drawer-nav a.is-active{
+  color:var(--gold, #D4AF37);
+}
+.hdr-drawer-nav a::after{
+  content:"→";
+  opacity:.35;
+  transition:opacity .18s ease, transform .18s ease;
+}
+.hdr-drawer-nav a:hover::after{ opacity:1; transform:translateX(4px); }
+.hdr-drawer-foot{
+  position:relative;
+  z-index:2;
+  padding:20px 24px;
+  border-top:1px solid var(--border, #1c1c22);
+  font-family:'JetBrains Mono', monospace;
+  font-size:11px;
+  letter-spacing:.16em;
+  color:var(--bone-faint, #6b6b6b);
+  text-transform:uppercase;
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+}
+body.drawer-open{ overflow:hidden; }
+
+/* Show hamburger, hide inline nav under 900px */
+@media (max-width: 900px){
+  .hdr-nav{ display:none; }
+  .hdr-burger{ display:inline-block; }
+  .site-header{ gap:12px; }
+}
+
+/* No JavaScript means no drawer to open, so the button stays hidden. */
+html:not(.js) .hdr-burger{ display:none; }
+
+/* =========================================================
+   DESKTOP HEADER — "lite" variant
+   For the eleven self-contained pages that do not ship
+   style.css and therefore had no desktop navigation at all.
+   Scoped under .hdr-lite so the four style.css pages
+   (index / music / quiz / contact) are untouched.
+   Every custom property carries a literal fallback.
+   ========================================================= */
+.hdr-lite{
+  position:sticky; top:0; z-index:60;
+  display:flex; align-items:center; justify-content:space-between;
+  gap:18px;
+  padding:14px 28px;
+  background:linear-gradient(180deg, rgba(5,5,6,.96) 0%, rgba(5,5,6,.82) 70%, rgba(5,5,6,.55) 100%);
+  backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--border, #1c1c22);
+  transition:padding .28s ease, background .28s ease, border-color .28s ease;
+}
+/* condensed once the visitor is past the fold */
+.hdr-lite.is-stuck{
+  padding:8px 28px;
+  background:rgba(5,5,6,.97);
+  border-bottom-color:rgba(212,175,55,.28);
+}
+.hdr-lite.is-stuck .hdr-lite-brand img{ width:28px; }
+.hdr-lite.is-stuck .hdr-lite-brand small{ opacity:0; height:0; margin:0; }
+
+/* scroll-depth bar welded to the bottom edge */
+.hdr-lite-depth{
+  position:absolute; left:0; bottom:-1px; height:1px;
+  width:100%; transform:scaleX(0); transform-origin:left;
+  background:linear-gradient(90deg, rgba(212,175,55,.15), var(--gold, #D4AF37));
+  box-shadow:0 0 10px rgba(212,175,55,.55);
+  pointer-events:none;
+}
+
+.hdr-lite-brand{
+  display:flex; align-items:center; gap:12px;
+  text-decoration:none; color:inherit; flex:0 0 auto;
+}
+.hdr-lite-brand img{ width:34px; height:auto; display:block; transition:width .28s ease; }
+.hdr-lite-brand span{
+  font-family:"JetBrains Mono", ui-monospace, monospace;
+  font-size:10px; letter-spacing:.3em; text-transform:uppercase;
+  color:var(--gold, #D4AF37); line-height:1.3;
+}
+.hdr-lite-brand small{
+  display:block; font-size:8px; letter-spacing:.24em; margin-top:3px;
+  color:var(--bone-faint, #6b6a63); overflow:hidden;
+  transition:opacity .24s ease, height .24s ease, margin .24s ease;
+}
+
+.hdr-lite-nav{
+  display:flex; gap:22px;
+  font-family:"JetBrains Mono", ui-monospace, monospace;
+  font-size:11px; letter-spacing:.24em; text-transform:uppercase;
+}
+.hdr-lite-nav a{
+  position:relative; padding:6px 0;
+  color:var(--bone-dim, #a8a498); text-decoration:none;
+  transition:color .2s ease;
+}
+.hdr-lite-nav a:hover{ color:var(--gold, #D4AF37); }
+.hdr-lite-nav a::after{
+  content:""; position:absolute; left:0; right:0; bottom:0; height:1px;
+  background:var(--gold, #D4AF37);
+  transform:scaleX(0); transform-origin:left;
+  transition:transform .3s cubic-bezier(.2,.8,.2,1);
+}
+.hdr-lite-nav a:hover::after{ transform:scaleX(1); }
+.hdr-lite-nav a.is-active{ color:var(--gold, #D4AF37); }
+.hdr-lite-nav a.is-active::after{ transform:scaleX(1); opacity:.55; }
+
+.hdr-lite-status{
+  display:flex; align-items:center; gap:8px; flex:0 0 auto;
+  font-family:"JetBrains Mono", ui-monospace, monospace;
+  font-size:10px; letter-spacing:.24em; text-transform:uppercase;
+  color:var(--gold, #D4AF37);
+}
+.hdr-lite-status .dot{
+  width:6px; height:6px; border-radius:50%;
+  background:var(--gold, #D4AF37); box-shadow:0 0 8px var(--gold, #D4AF37);
+  animation:hdrDot 2s ease-in-out infinite;
+}
+@keyframes hdrDot{ 0%,100%{ opacity:1 } 50%{ opacity:.35 } }
+.hdr-lite-status .status-word{
+  display:inline-block; min-width:92px;
+  transition:opacity .28s ease;
+}
+.hdr-lite-status .status-word.is-fading{ opacity:0; }
+
+/* the float variant is redundant once a real header exists */
+/* keep position:relative — the three bars are absolutely positioned
+   against the button itself, not the header. */
+.hdr-lite .hdr-burger{
+  position:relative; top:auto; right:auto;
+  background:transparent; backdrop-filter:none; flex:0 0 auto;
+}
+
+@media (max-width: 900px){
+  .hdr-lite{ padding:10px 16px; gap:10px; }
+  .hdr-lite.is-stuck{ padding:8px 16px; }
+  .hdr-lite-nav{ display:none; }
+  .hdr-lite-brand img{ width:28px; }
+  .hdr-lite-brand span{ font-size:9px; letter-spacing:.22em; }
+  .hdr-lite-brand small{ font-size:7px; }
+  .hdr-lite-status{ font-size:9px; letter-spacing:.14em; }
+  .hdr-lite-status .label-full{ display:none; }
+  .hdr-lite-status .status-word{ min-width:0; }
+}
+@media (max-width: 560px){
+  .hdr-lite-status{ display:none; }
+}
+@media (prefers-reduced-motion: reduce){
+  .hdr-lite, .hdr-lite-brand img, .hdr-lite-brand small,
+  .hdr-lite-nav a, .hdr-lite-nav a::after, .hdr-lite-depth{ transition:none !important; }
+  .hdr-lite-status .dot{ animation:none !important; }
+}

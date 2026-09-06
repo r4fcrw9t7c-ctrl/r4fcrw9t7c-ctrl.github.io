@@ -1,0 +1,257 @@
+/* ============================================================
+   REALM HQ — PORTAL v2
+   Four-phase entry: BOOT → IDLE → AUTH → TEAR → SETTLE
+   Loads after style.css on index.html only. Scoped entirely to
+   .portal-stage so it cannot leak into the rest of the site.
+   ============================================================ */
+
+/* --- Injected furniture ------------------------------------ */
+.portal-seam{
+  position:absolute; left:50%; top:50%;
+  width:min(88vmin,780px); height:2px;
+  transform:translate(-50%,-50%) scaleX(0);
+  transform-origin:50% 50%;
+  z-index:3; pointer-events:none;
+  background:linear-gradient(90deg,transparent,var(--gold-hot) 18%,#fff 50%,var(--gold-hot) 82%,transparent);
+  box-shadow:0 0 18px rgba(231,200,119,.85),0 0 46px rgba(200,162,74,.45);
+  opacity:0;
+}
+.portal-scan{
+  position:absolute; left:0; right:0; top:0; height:180px;
+  z-index:6; pointer-events:none; opacity:0;
+  background:linear-gradient(180deg,transparent,rgba(200,162,74,.05) 55%,rgba(231,200,119,.22) 88%,rgba(255,255,255,.35));
+  border-bottom:1px solid rgba(231,200,119,.55);
+}
+.portal-flash{
+  position:absolute; inset:0; z-index:20; pointer-events:none;
+  background:radial-gradient(ellipse at 50% 50%,#fff 0%,var(--gold-hot) 34%,rgba(200,162,74,0) 78%);
+  opacity:0;
+}
+/* Split halves used for the tear. They clip the whole stage. */
+.portal-stage{ clip-path:inset(0 0 0 0); }
+
+/* --- Caret used by the HUD typewriter ---------------------- */
+.hud-caret{
+  display:inline-block; width:6px; height:1em; margin-left:2px;
+  background:var(--gold); vertical-align:-2px;
+  animation:hudCaret 1s steps(1) infinite;
+}
+@keyframes hudCaret{ 0%,49%{opacity:1} 50%,100%{opacity:0} }
+
+/* --- Live clock line --------------------------------------- */
+.hud-clock{ font-variant-numeric:tabular-nums; }
+
+/* ============================================================
+   PHASE 0 — COLD BOOT
+   Rift, crown and CTA are held back; only the seam and the
+   sweeping scan line exist. HUD corners are typed in by JS.
+   ============================================================ */
+.portal-stage.p-boot .rift,
+.portal-stage.p-boot .portal-cta{ opacity:0; }
+.portal-stage.p-boot .portal-vhs,
+.portal-stage.p-boot .portal-noise{ opacity:.35; }
+
+.portal-stage.p-boot .portal-seam{
+  opacity:1;
+  animation:seamStrike .62s cubic-bezier(.2,.9,.25,1) .10s forwards;
+}
+@keyframes seamStrike{
+  0%  { transform:translate(-50%,-50%) scaleX(0);   filter:brightness(2.4); }
+  70% { transform:translate(-50%,-50%) scaleX(1.02);filter:brightness(1.6); }
+  100%{ transform:translate(-50%,-50%) scaleX(1);   filter:brightness(1); }
+}
+.portal-stage.p-boot .portal-scan{
+  opacity:1;
+  animation:scanSweep .9s linear forwards;
+}
+@keyframes scanSweep{
+  from{ transform:translateY(-180px); opacity:.9; }
+  85% { opacity:.9; }
+  to  { transform:translateY(100vh);  opacity:0; }
+}
+
+/* HUD corners start hidden in boot; JS reveals them one by one. */
+.portal-stage.p-boot .portal-hud{ opacity:0; }
+.portal-stage.p-boot .portal-hud.is-live{ opacity:1; }
+
+/* ============================================================
+   PHASE 1 — IDLE / AWAITING OPERATIVE
+   The seam blooms into the signature rift. Everything breathes.
+   ============================================================ */
+.portal-stage.p-idle .rift{
+  opacity:1;
+  animation:riftBloom 1.05s cubic-bezier(.16,1,.3,1) forwards;
+}
+@keyframes riftBloom{
+  0%  { opacity:0; transform:translate(-50%,-50%) scale(.62) scaleY(.02); filter:brightness(2.2); }
+  55% { opacity:1; transform:translate(-50%,-50%) scale(1.04) scaleY(1);  filter:brightness(1.35); }
+  100%{ opacity:1; transform:translate(-50%,-50%) scale(1);              filter:brightness(1); }
+}
+.portal-stage.p-idle .portal-seam{
+  animation:seamRetire .8s ease forwards;
+}
+@keyframes seamRetire{ to{ opacity:0; transform:translate(-50%,-50%) scaleX(1.3); } }
+
+.portal-stage.p-idle .portal-cta{ opacity:1; }
+
+/* Idle micro-fault: a 90ms horizontal tear with RGB separation.
+   Driven by a JS-added class so the interval can be randomised. */
+.portal-stage.is-fault{ animation:portalFault .09s steps(3) 1; }
+@keyframes portalFault{
+  0%  { transform:translateX(0);    filter:none; }
+  33% { transform:translateX(-3px); filter:drop-shadow(3px 0 0 rgba(255,0,60,.55)) drop-shadow(-3px 0 0 rgba(0,190,255,.5)); }
+  66% { transform:translateX(2px);  filter:drop-shadow(-2px 0 0 rgba(255,0,60,.45)) drop-shadow(2px 0 0 rgba(0,190,255,.4)); }
+  100%{ transform:translateX(0);    filter:none; }
+}
+
+/* Extra idle lines, faded in by JS after 25s / 45s. */
+.hud-idle{ opacity:0; transition:opacity .9s ease; color:var(--bone-faint); }
+.hud-idle.is-shown{ opacity:.75; }
+
+/* Slow gold sweep across the ENTER button border, every ~4s. */
+.portal-stage.p-idle .enter-btn::after{
+  content:""; position:absolute; inset:-1px;
+  border:1px solid transparent;
+  background:linear-gradient(115deg,transparent 38%,rgba(231,200,119,.85) 50%,transparent 62%) border-box;
+  -webkit-mask:linear-gradient(#000 0 0) padding-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor; mask-composite:exclude;
+  pointer-events:none;
+  animation:btnSweep 4s linear infinite;
+}
+@keyframes btnSweep{
+  0%,70%{ background-position:-220% 0; }
+  100%  { background-position:220% 0; }
+}
+
+/* ============================================================
+   PHASE 2 — AUTHENTICATION (on click, ~1100ms)
+   Something is checking you. Aberration ramps to ~4px.
+   ============================================================ */
+/* Aberration is deliberately restrained: at full strength the RGB
+   drop-shadows stack with the aurora's screen blend and wash the gold
+   palette out to a green/purple blur. 2px reads as a signal fault;
+   4px reads as a broken monitor. */
+.portal-stage.p-auth{ animation:aberrationRamp 1.1s ease-in forwards; }
+@keyframes aberrationRamp{
+  0%  { filter:none; }
+  100%{ filter:drop-shadow(2px 0 0 rgba(255,0,60,.30)) drop-shadow(-2px 0 0 rgba(0,190,255,.26)); }
+}
+.portal-stage.p-auth .rift{ animation:riftAuth 1.1s cubic-bezier(.3,.8,.3,1) forwards; }
+@keyframes riftAuth{
+  0%  { transform:translate(-50%,-50%) scale(1);    filter:brightness(1)   saturate(1); }
+  100%{ transform:translate(-50%,-50%) scale(1.12); filter:brightness(1.35) saturate(1.35); }
+}
+.portal-stage.p-auth .rift-crown{ animation:crownAuth 1.1s cubic-bezier(.3,.8,.3,1) forwards; }
+@keyframes crownAuth{
+  0%  { transform:translate(-50%,-50%) scale(1)    rotate(0deg); }
+  100%{ transform:translate(-50%,-50%) scale(1.16) rotate(2deg); }
+}
+.portal-stage.p-auth .rift-aurora{ animation:auroraAuth 1.1s ease-out forwards; }
+@keyframes auroraAuth{
+  0%  { transform:scale(1);    opacity:.42; }
+  100%{ transform:scale(1.09); opacity:.62; }
+}
+.portal-stage.p-auth .portal-cta{ animation:ctaRetire .34s ease-out forwards; }
+@keyframes ctaRetire{ to{ opacity:0; transform:translateX(-50%) translateY(14px); } }
+.portal-stage.p-auth .enter-btn::after{ animation:none; opacity:0; }
+
+/* Converging particle canvas, mounted by JS for the auth phase only. */
+.portal-converge{
+  position:absolute; inset:0; z-index:7; pointer-events:none;
+  opacity:0; transition:opacity .25s ease;
+}
+.portal-converge.is-live{ opacity:1; }
+
+/* ============================================================
+   PHASE 3 — THE TEAR (~1100 → 2400ms)
+   The seam splits vertically. clip-path, not opacity.
+   ============================================================ */
+/* Front-loaded easing. The original cubic-bezier(.7,0,.28,1) plus a 16%
+   hold meant the split had barely moved 3% of the way at the halfway
+   point — the tear was measurably happening but visually invisible. */
+.portal-stage.p-tear{
+  animation:portalTear 1.25s cubic-bezier(.32,.06,.2,1) forwards;
+  will-change:clip-path,filter;
+}
+@keyframes portalTear{
+  0%  { clip-path:inset(0% 0% 0% 0%);    filter:drop-shadow(2px 0 0 rgba(255,0,60,.30)) drop-shadow(-2px 0 0 rgba(0,190,255,.26)); }
+  8%  { clip-path:inset(0% 0% 0% 0%);    filter:brightness(1.7); }
+  100%{ clip-path:inset(0% 50% 0% 50%);  filter:brightness(.75); }
+}
+/* Halves peel outward as the clip closes, so it reads as a rip
+   rather than a shutter. */
+.portal-stage.p-tear .rift{ animation:riftTear 1.3s cubic-bezier(.7,0,.28,1) forwards; }
+@keyframes riftTear{
+  0%  { transform:translate(-50%,-50%) scale(1.14); opacity:1; }
+  100%{ transform:translate(-50%,-50%) scale(2.9);  opacity:0; }
+}
+.portal-stage.p-tear .portal-hud{ animation:hudEject .62s cubic-bezier(.5,0,.9,.4) forwards; }
+.portal-stage.p-tear .hud-tl{ --hx:-70vw; --hy:-32vh; }
+.portal-stage.p-tear .hud-tr{ --hx: 70vw; --hy:-32vh; }
+.portal-stage.p-tear .hud-bl{ --hx:-70vw; --hy: 32vh; }
+.portal-stage.p-tear .hud-br{ --hx: 70vw; --hy: 32vh; }
+@keyframes hudEject{
+  to{ transform:translate(var(--hx,0),var(--hy,0)); opacity:0; }
+}
+.portal-stage.p-tear .portal-vignette{ animation:vigOut .7s ease forwards; }
+@keyframes vigOut{ to{ opacity:0; } }
+
+/* Flash frame at maximum tear. */
+.portal-flash.is-fired{ animation:flashFrame .13s steps(2) 1 forwards; }
+@keyframes flashFrame{
+  0%  { opacity:0; }
+  40% { opacity:.92; }
+  100%{ opacity:0; }
+}
+
+/* Stamp impact: shake the whole viewport, ≤4px, ≤200ms. */
+html.portal-impact body{ animation:impactShake .19s cubic-bezier(.36,.07,.19,.97) 1; }
+@keyframes impactShake{
+  0%,100%{ transform:translate(0,0); }
+  20% { transform:translate(-3px,2px); }
+  45% { transform:translate(3px,-2px); }
+  70% { transform:translate(-2px,-1px); }
+}
+
+.portal-stage.is-hidden{ display:none !important; } /* overrides p-tear paint */
+
+/* ============================================================
+   MOBILE — cheaper. No aberration (expensive on mobile GPUs).
+   ============================================================ */
+@media (max-width:900px){
+  .portal-stage.p-auth{ animation:none; filter:none; }
+  .portal-stage.p-tear{ animation:portalTearLite 1.05s cubic-bezier(.32,.06,.2,1) forwards; }
+  @keyframes portalTearLite{
+    0%  { clip-path:inset(0% 0% 0% 0%);   filter:brightness(1.05); }
+    8%  { clip-path:inset(0% 0% 0% 0%);   filter:brightness(1.55); }
+    100%{ clip-path:inset(0% 50% 0% 50%); filter:brightness(.75); }
+  }
+  .portal-scan{ height:120px; }
+  .portal-seam{ width:92vw; }
+}
+
+/* ============================================================
+   REDUCED MOTION — everything collapses to a static portal.
+   ============================================================ */
+@media (prefers-reduced-motion:reduce){
+  .portal-seam,.portal-scan,.portal-flash,.portal-converge{ display:none !important; }
+  .portal-stage.p-boot .rift,
+  .portal-stage.p-boot .portal-cta,
+  .portal-stage.p-boot .portal-hud{ opacity:1 !important; }
+  .portal-stage,
+  .portal-stage.p-boot .rift,
+  .portal-stage.p-idle .rift,
+  .portal-stage.p-auth,
+  .portal-stage.p-auth .rift,
+  .portal-stage.p-auth .rift-crown,
+  .portal-stage.p-auth .rift-aurora,
+  .portal-stage.p-auth .portal-cta,
+  .portal-stage.p-tear,
+  .portal-stage.p-tear .rift,
+  .portal-stage.p-tear .portal-hud,
+  .portal-stage.is-fault,
+  .portal-stage.p-idle .enter-btn::after,
+  html.portal-impact body{ animation:none !important; filter:none !important; clip-path:none !important; }
+  .portal-stage.p-tear{ opacity:0; transition:opacity .2s linear; }
+  .hud-caret{ animation:none; opacity:1; }
+}

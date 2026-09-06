@@ -1,0 +1,245 @@
+/* ============================================================
+   REALM HQ — FX v6 STYLES
+   Loads after fx4.css on all 15 pages.
+
+   30. SURVEILLANCE   · hovering a photo drops a CAM/REC HUD on it
+   31. CLEARANCE GAUGE· a right-edge meter climbs LVL 01→05 with depth
+   32. SIGNAL TRACE   · oscilloscope line beside the header status
+   33. FOCUS RETICLE  · keyboard focus snaps a dashed gold frame in
+   34. EXFIL TOAST    · copying text logs an incident, bottom-right
+   35. TARGET LOCK    · hash-navigated sections get bracketed
+   36. LINK INK       · prose links draw a gold underline; gold ::selection
+   37. TUBE FLICKER   · a random mono label dips once, like a tired tube
+   38. SIGNAL LOST TAB· title swap — no CSS, see fx5.js
+
+   Same contract as fx4: compositor-friendly properties only
+   (opacity / transform / filter / background-size / outline-offset),
+   and everything unwinds under prefers-reduced-motion at the foot.
+   Fixed layers sit BELOW the reticle (99999), the interference
+   veil (99970) and the nav drawer (9998) and above page content.
+   ============================================================ */
+
+/* ============================================================
+   30. SURVEILLANCE
+   The HUD is built from one injected node with pseudo-elements
+   for the crosshair, so the cost per image is a single div.
+   Host gets position:relative only if it was static — fx5.js
+   checks before it stamps the class on.
+   ============================================================ */
+.fx5-camhost{ position:relative; }
+.fx5-cam{
+  position:absolute; inset:0; pointer-events:none; z-index:5;
+  opacity:0; transition:opacity .22s ease;
+  font-family:"JetBrains Mono", ui-monospace, monospace;
+  font-size:9px; letter-spacing:.18em; text-transform:uppercase;
+  color:rgba(232,228,212,.92);
+  text-shadow:0 0 6px rgba(0,0,0,.9), 0 1px 0 rgba(0,0,0,.8);
+  overflow:hidden; border-radius:inherit;
+}
+.fx5-camhost:hover .fx5-cam,
+.fx5-camhost:focus-within .fx5-cam{ opacity:1; }
+/* crosshair — two hairlines through the centre, deliberately faint */
+.fx5-cam::before, .fx5-cam::after{
+  content:""; position:absolute; background:rgba(212,175,55,.32);
+}
+.fx5-cam::before{ left:50%; top:14%; bottom:14%; width:1px; }
+.fx5-cam::after{ top:50%; left:14%; right:14%; height:1px; }
+.fx5-cam i{
+  position:absolute; width:10px; height:10px;
+  border:1px solid rgba(212,175,55,.85); border-radius:1px;
+}
+.fx5-cam i:nth-child(1){ top:6px; left:6px; border-right:0; border-bottom:0; }
+.fx5-cam i:nth-child(2){ top:6px; right:6px; border-left:0; border-bottom:0; }
+.fx5-cam i:nth-child(3){ bottom:6px; left:6px; border-right:0; border-top:0; }
+.fx5-cam i:nth-child(4){ bottom:6px; right:6px; border-left:0; border-top:0; }
+.fx5-cam b{ position:absolute; font-weight:400; white-space:nowrap; line-height:1; }
+.fx5-cam .cam-id{ top:9px; left:20px; }
+.fx5-cam .cam-id::before{
+  content:""; display:inline-block; width:5px; height:5px; border-radius:50%;
+  background:#ff3b30; box-shadow:0 0 6px #ff3b30; margin-right:6px;
+  vertical-align:0; animation:fx5rec 1.4s ease-in-out infinite;
+}
+.fx5-cam .cam-time{ top:9px; right:20px; color:rgba(212,175,55,.95); }
+.fx5-cam .cam-tag{ bottom:9px; left:20px; color:rgba(212,175,55,.75); }
+.fx5-cam .cam-lvl{ bottom:9px; right:20px; }
+/* a thin scan line drifts down while the operative is watching */
+.fx5-cam .cam-scan{
+  position:absolute; left:0; right:0; height:1px; top:-2px;
+  background:linear-gradient(90deg, transparent, rgba(212,175,55,.55), transparent);
+  animation:fx5scan 2.6s linear infinite;
+}
+@keyframes fx5rec { 0%,100%{ opacity:1 } 50%{ opacity:.25 } }
+@keyframes fx5scan{ from{ transform:translateY(0) } to{ transform:translateY(var(--fx5-h, 240px)) } }
+/* Hosts with their own badge (the drop photo) get both HUD rows at
+   the foot so nothing overlaps authored labels. */
+.fx5-cam.is-busy .cam-id{ top:auto; bottom:26px; }
+.fx5-cam.is-busy .cam-time{ top:auto; bottom:26px; }
+/* Photos under 150px tall or 200px wide are too small for four
+   labels — drop to brackets + REC only. fx5.js adds .is-tight. */
+.fx5-cam.is-tight .cam-time, .fx5-cam.is-tight .cam-tag, .fx5-cam.is-tight .cam-lvl{ display:none; }
+.fx5-cam.is-tight::before, .fx5-cam.is-tight::after{ display:none; }
+
+/* ============================================================
+   31. CLEARANCE GAUGE
+   Desktop only (≥1100px) — on a phone the right edge is thumb
+   territory. Five pips; the lit count follows scroll depth and
+   the readout re-locks on every level change.
+   ============================================================ */
+.fx5-gauge{
+  position:fixed; right:16px; top:50%; transform:translateY(-50%);
+  z-index:99950; pointer-events:none;
+  display:none; flex-direction:column; align-items:center; gap:7px;
+  font-family:"JetBrains Mono", ui-monospace, monospace;
+  font-size:9px; letter-spacing:.22em; text-transform:uppercase;
+  color:rgba(212,175,55,.72);
+  opacity:0; transition:opacity .6s ease;
+}
+.fx5-gauge.is-on{ opacity:1; }
+.fx5-gauge .g-lbl{
+  writing-mode:vertical-rl; transform:rotate(180deg);
+  color:rgba(168,164,152,.55); letter-spacing:.3em;
+}
+.fx5-gauge .g-pips{ display:flex; flex-direction:column-reverse; gap:6px; }
+.fx5-gauge .g-pips i{
+  display:block; width:3px; height:18px; border-radius:1px;
+  background:rgba(212,175,55,.14);
+  transition:background .35s ease, box-shadow .35s ease, transform .35s ease;
+}
+.fx5-gauge .g-pips i.lit{
+  background:#D4AF37; box-shadow:0 0 8px rgba(212,175,55,.55);
+  transform:scaleX(1.6);
+}
+.fx5-gauge .g-lvl{
+  display:inline-block; min-width:5ch; text-align:center;
+  color:#D4AF37; padding-top:2px;
+}
+.fx5-gauge .g-lvl.is-relock{ animation:fx5relock .42s steps(3, end) both; }
+@keyframes fx5relock{
+  0%  { opacity:.2; transform:translateX(-2px); filter:blur(1px); }
+  60% { opacity:1;  transform:translateX(1px);  filter:none; }
+  100%{ opacity:1;  transform:none; }
+}
+@media (min-width:1100px){
+  .fx5-gauge{ display:flex; }
+}
+
+/* ============================================================
+   32. SIGNAL TRACE
+   A 44×14 canvas dropped in front of the status dot. Hidden with
+   the rest of the status cluster on small screens; nav.css /
+   style.css already collapse .label-full below 900px, so this
+   simply follows suit.
+   ============================================================ */
+.fx5-trace{
+  display:inline-block; width:44px; height:14px; flex:0 0 auto;
+  opacity:.85; vertical-align:middle;
+}
+@media (max-width:1100px){ .fx5-trace{ display:none; } }
+
+/* ============================================================
+   33. FOCUS RETICLE
+   Keyboard users get a dashed gold frame that snaps inward from
+   10px to 3px — the same "lock" grammar the cursor reticle uses.
+   Inputs keep their own border-driven focus styles; the 4 global
+   pages already declare :focus-visible, this wins on specificity
+   (:not() carries the weight of its argument).
+   ============================================================ */
+:focus-visible:not(input):not(textarea):not(select):not(.skip-link){
+  outline:1px dashed rgba(212,175,55,.95);
+  outline-offset:3px;
+  border-radius:2px;
+  animation:fx5focus .22s cubic-bezier(.2,.8,.2,1) both;
+}
+@keyframes fx5focus{ from{ outline-offset:10px; outline-color:rgba(212,175,55,.2); } }
+
+/* ============================================================
+   34. EXFIL TOAST
+   Bottom-right so it never fights the idle prompt (bottom-left)
+   or the audio toggle (header).
+   ============================================================ */
+.fx5-toast{
+  position:fixed; right:18px; bottom:18px; z-index:99955; pointer-events:none;
+  font-family:"JetBrains Mono", ui-monospace, monospace;
+  font-size:10px; letter-spacing:.2em; text-transform:uppercase;
+  color:#D4AF37; background:rgba(11,11,15,.92);
+  border:1px solid rgba(212,175,55,.45); border-left-width:3px;
+  padding:9px 12px 9px 11px; max-width:min(78vw, 420px);
+  opacity:0; transform:translateY(8px);
+  transition:opacity .26s ease, transform .26s cubic-bezier(.2,.8,.2,1);
+}
+.fx5-toast.is-in{ opacity:1; transform:none; }
+.fx5-toast small{ display:block; font-size:9px; letter-spacing:.16em; color:#a8a498; margin-top:3px; }
+
+/* ============================================================
+   35. TARGET LOCK
+   Four corner brackets scale in around whatever the hash points
+   at, hold, then dissolve. Nodes are torn out by fx5.js after.
+   ============================================================ */
+.fx5-tlhost{ position:relative; }
+.fx5-tl{
+  position:absolute; width:22px; height:22px; pointer-events:none; z-index:6;
+  border:1px solid #D4AF37; box-shadow:0 0 10px rgba(212,175,55,.35);
+  opacity:0; animation:fx5tl 1.9s cubic-bezier(.2,.8,.2,1) both;
+}
+.fx5-tl:nth-child(1){ top:6px; left:6px; border-right:0; border-bottom:0; --fx5-tx:-14px; --fx5-ty:-14px; }
+.fx5-tl:nth-child(2){ top:6px; right:6px; border-left:0; border-bottom:0; --fx5-tx:14px; --fx5-ty:-14px; }
+.fx5-tl:nth-child(3){ bottom:6px; left:6px; border-right:0; border-top:0; --fx5-tx:-14px; --fx5-ty:14px; }
+.fx5-tl:nth-child(4){ bottom:6px; right:6px; border-left:0; border-top:0; --fx5-tx:14px; --fx5-ty:14px; }
+@keyframes fx5tl{
+  0%  { opacity:0; transform:translate(var(--fx5-tx), var(--fx5-ty)); }
+  18% { opacity:1; transform:none; }
+  70% { opacity:1; transform:none; }
+  100%{ opacity:0; transform:none; }
+}
+
+/* ============================================================
+   36. LINK INK + SELECTION
+   Only anonymous anchors inside prose. Anything with a class is
+   a designed component and is left alone.
+   ============================================================ */
+:where(p, li, .callout, .lede, dd) > a:not([class]){
+  color:#D4AF37; text-decoration:none;
+  background-image:linear-gradient(#D4AF37, #D4AF37);
+  background-repeat:no-repeat; background-position:0 100%;
+  background-size:0 1px;
+  transition:background-size .3s cubic-bezier(.2,.8,.2,1), color .2s ease;
+  padding-bottom:1px;
+}
+:where(p, li, .callout, .lede, dd) > a:not([class]):hover,
+:where(p, li, .callout, .lede, dd) > a:not([class]):focus-visible{
+  background-size:100% 1px; color:#e7c877;
+}
+::selection{ background:rgba(212,175,55,.88); color:#0B0B0F; text-shadow:none; }
+
+/* ============================================================
+   37. TUBE FLICKER
+   One dip, one recovery. Not a strobe — a single event every
+   18–40s on one element, so it can never approach 3Hz.
+   ============================================================ */
+.fx5-tube{ animation:fx5tube .46s ease-out both; }
+@keyframes fx5tube{
+  0%  { opacity:1; }
+  12% { opacity:.28; text-shadow:0 0 6px rgba(212,175,55,.6); }
+  22% { opacity:.9; }
+  34% { opacity:.55; }
+  100%{ opacity:1; text-shadow:none; }
+}
+
+/* ============================================================
+   REDUCED MOTION
+   Nothing moves. Nothing hides content. The gauge stays as a
+   static depth readout because it carries information; the
+   trace goes because it is pure motion.
+   ============================================================ */
+@media (prefers-reduced-motion: reduce){
+  .fx5-cam{ transition:none; }
+  .fx5-cam .cam-scan{ display:none !important; }
+  .fx5-cam .cam-id::before{ animation:none !important; }
+  .fx5-gauge, .fx5-gauge .g-pips i, .fx5-gauge .g-lvl{ transition:none !important; animation:none !important; }
+  .fx5-trace{ display:none !important; }
+  :focus-visible:not(input):not(textarea):not(select):not(.skip-link){ animation:none !important; }
+  .fx5-toast{ transition:none; transform:none; }
+  .fx5-tl{ animation:none !important; opacity:1; transform:none !important; }
+  :where(p, li, .callout, .lede, dd) > a:not([class]){ transition:none; background-size:100% 1px; }
+  .fx5-tube{ animation:none !important; }
+}

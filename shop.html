@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en-AU" class="js">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shop · Realm HQ</title>
+  <meta name="description" content="Clearance tiers, live and certifiable. Merch drops incoming. Realm Certified. Numbered. Limited." />
+  <meta name="theme-color" content="#0a0806" />
+  <link rel="icon" href="assets/favicon-64.png" type="image/png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link rel="canonical" href="https://shadowrealmhq.com/shop" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&display=swap" rel="stylesheet" />
+  <style>
+    :root{ --void:#0B0B0F; --bone:#F5F1E8; --bone-dim:#a8a8a8; --bone-faint:#6b6b6b; --gold:#D4AF37; --gold-hot:#F0C548; --hazard:#22D3EE; --realm-purple:#A855F7; }
+    *{ box-sizing:border-box; }
+    html, body{ margin:0; padding:0; background:var(--void); color:var(--bone); font-family:'Space Grotesk', system-ui, sans-serif; }
+    body{ position:relative; min-height:100vh; }
+    body::before{ content:""; position:fixed; inset:0; background:repeating-linear-gradient(0deg, transparent 0, transparent 3px, rgba(255,255,255,.012) 3px, rgba(255,255,255,.012) 4px); pointer-events:none; z-index:1; }
+    .wrap{ position:relative; z-index:2; max-width:1120px; margin:0 auto; padding:56px 24px 96px; }
+    .back{ display:inline-flex; align-items:center; gap:8px; color:var(--bone-dim); font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:.2em; text-transform:uppercase; text-decoration:none; margin-bottom:36px; }
+    .back:hover{ color:var(--gold); }
+    .file-no{ font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:.24em; color:var(--gold); margin-bottom:12px; }
+    h1{ font-family:'Cormorant Garamond', serif; font-weight:500; font-size:clamp(38px, 6vw, 60px); line-height:1.05; margin:0 0 14px; letter-spacing:-.01em; }
+    h1 .glow{ color:var(--gold); font-style:italic; }
+    .sub{ font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--bone-faint); margin-bottom:44px; padding-bottom:20px; border-bottom:1px dashed rgba(212,175,55,.25); }
+
+    /* Billing toggle */
+    .billing-row{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; margin-bottom:28px; }
+    .section-h{ font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:.28em; text-transform:uppercase; color:var(--gold); }
+    .toggle{ display:inline-flex; padding:4px; border:1px solid rgba(212,175,55,.3); background:rgba(11,11,15,.6); font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; }
+    .toggle button{ padding:8px 14px; background:transparent; border:none; color:var(--bone-dim); cursor:pointer; font-family:inherit; font-size:inherit; letter-spacing:inherit; text-transform:inherit; transition:background .18s, color .18s; }
+    .toggle button.active{ background:var(--gold); color:var(--void); }
+    .toggle button:hover:not(.active){ color:var(--bone); }
+
+    /* Before you enlist */
+    .enlist-info{ border:1px solid rgba(212,175,55,.28); background:rgba(255,255,255,.012); padding:26px 24px; margin-bottom:40px; }
+    .enlist-info h2{ font-family:'Cormorant Garamond', serif; font-weight:600; font-size:26px; margin:0 0 6px; letter-spacing:-.01em; }
+    .enlist-info .lead{ font-size:13.5px; line-height:1.7; color:var(--bone-dim); margin:0 0 20px; max-width:64ch; }
+    .enlist-info dl{ margin:0; display:grid; grid-template-columns:1fr; gap:16px; }
+    @media(min-width:720px){ .enlist-info dl{ grid-template-columns:1fr 1fr; gap:18px 32px; } }
+    .enlist-info dt{ font-family:'JetBrains Mono', monospace; font-size:10px; letter-spacing:.24em; text-transform:uppercase; color:var(--gold); margin-bottom:5px; }
+    .enlist-info dd{ margin:0; font-size:13px; line-height:1.6; color:var(--bone-dim); }
+    .enlist-info dd a{ color:var(--gold); text-decoration:none; border-bottom:1px dashed rgba(212,175,55,.5); }
+    .enlist-info dd a:hover{ color:var(--bone); border-bottom-color:var(--bone); }
+    .enlist-links{ margin-top:20px; padding-top:16px; border-top:1px dashed rgba(212,175,55,.2); font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--bone-faint); display:flex; flex-wrap:wrap; gap:8px 16px; align-items:center; }
+    .enlist-links a{ color:var(--gold); text-decoration:none; border-bottom:1px dashed rgba(212,175,55,.4); }
+    .enlist-links a:hover{ color:var(--bone); border-bottom-color:var(--bone); }
+
+    /* Tier grid */
+    .tier-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:18px; margin-bottom:56px; }
+    .tier{ position:relative; border:1px solid rgba(212,175,55,.22); background:rgba(255,255,255,.015); padding:24px 22px 22px; display:flex; flex-direction:column; transition:border-color .2s, transform .2s; }
+    .tier:hover{ border-color:var(--gold); transform:translateY(-2px); }
+    .tier.featured{ border-color:var(--gold); background:linear-gradient(180deg, rgba(212,175,55,.06) 0%, rgba(255,255,255,.015) 100%); }
+    .tier-badge{ position:absolute; top:-10px; left:22px; padding:4px 10px; background:var(--gold); color:var(--void); font-family:'JetBrains Mono', monospace; font-size:9.5px; letter-spacing:.24em; text-transform:uppercase; }
+    .tier.featured{ padding-top:32px; }
+    .tier-tag{ font-family:'JetBrains Mono', monospace; font-size:10px; letter-spacing:.28em; text-transform:uppercase; color:var(--bone-faint); margin-bottom:10px; }
+    .tier-name{ font-family:'Cormorant Garamond', serif; font-weight:600; font-size:32px; line-height:1; margin:0 0 6px; color:var(--bone); letter-spacing:-.01em; }
+    .tier-price{ display:flex; align-items:baseline; gap:6px; margin:16px 0 10px; }
+    .tier-price .amt{ font-family:'JetBrains Mono', monospace; font-size:32px; font-weight:700; color:var(--gold); letter-spacing:-.01em; }
+    .tier-price .cadence{ font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--bone-faint); }
+    .tier-desc{ font-size:13.5px; line-height:1.55; color:var(--bone-dim); margin:0 0 16px; min-height:60px; }
+    .tier-perks{ list-style:none; margin:0 0 20px; padding:0; display:flex; flex-direction:column; gap:8px; flex:1; }
+    .tier-perks li{ font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:.05em; color:var(--bone); padding-left:14px; position:relative; line-height:1.5; }
+    .tier-perks li::before{ content:"·"; position:absolute; left:0; color:var(--gold); font-weight:700; }
+    .tier-btn{ display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:12px 16px; border:1px solid var(--gold); background:transparent; color:var(--gold); font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:.22em; text-transform:uppercase; text-decoration:none; cursor:pointer; transition:background .18s, color .18s; }
+    .tier-btn:hover{ background:var(--gold); color:var(--void); }
+    .tier-btn.primary{ background:var(--gold); color:var(--void); }
+    .tier-btn.primary:hover{ background:transparent; color:var(--gold); }
+    .tier-btn:disabled{ opacity:.5; cursor:not-allowed; }
+
+    /* Merch section */
+    .merch-h{ display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:12px; margin:24px 0 20px; padding-top:32px; border-top:1px dashed rgba(212,175,55,.2); }
+    .merch-note{ font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--hazard); }
+    .merch-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:16px; }
+    .merch{ position:relative; border:1px dashed rgba(212,175,55,.25); background:rgba(255,255,255,.01); padding:20px; min-height:200px; display:flex; flex-direction:column; justify-content:space-between; }
+    .merch-thumb{ aspect-ratio:1; margin:-4px -4px 16px; background:linear-gradient(135deg, rgba(212,175,55,.06), rgba(168,85,247,.06)); border:1px dashed rgba(212,175,55,.15); display:flex; align-items:center; justify-content:center; color:var(--bone-faint); font-family:'JetBrains Mono', monospace; font-size:10px; letter-spacing:.28em; text-transform:uppercase; }
+    .merch-title{ font-family:'Cormorant Garamond', serif; font-weight:500; font-size:22px; color:var(--bone); margin:0 0 4px; letter-spacing:-.01em; }
+    .merch-meta{ font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--bone-faint); margin-bottom:12px; }
+    .merch-status{ font-family:'JetBrains Mono', monospace; font-size:10px; letter-spacing:.24em; text-transform:uppercase; padding:8px 12px; text-align:center; border-top:1px dashed rgba(212,175,55,.2); margin:12px -20px -20px; }
+    .merch-status.classified{ color:var(--hazard); background:rgba(34,211,238,.04); }
+    .merch-status.incoming{ color:var(--gold); background:rgba(212,175,55,.04); }
+    .merch-status.soldout{ color:var(--bone-faint); background:rgba(255,255,255,.02); }
+    .merch-price{ font-family:'JetBrains Mono', monospace; font-size:13px; letter-spacing:.06em; color:var(--gold); margin-bottom:10px; }
+    .merch-buy{ display:block; width:calc(100% + 40px); margin:12px -20px -20px; padding:12px; border:none; border-top:1px dashed rgba(212,175,55,.2); background:var(--gold); color:var(--void); font-family:'JetBrains Mono', monospace; font-size:10px; letter-spacing:.24em; text-transform:uppercase; text-align:center; cursor:pointer; transition:background .18s, color .18s; }
+    .merch-buy:hover{ background:var(--gold-hot); }
+    .merch-buy:disabled{ opacity:.5; cursor:not-allowed; background:transparent; color:var(--bone-faint); }
+    .merch-buy.loading{ opacity:.6; pointer-events:none; }
+
+    /* Footer */
+    .foot{ margin-top:56px; padding-top:24px; border-top:1px solid rgba(212,175,55,.2); font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--bone-faint); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+    .foot .seal{ color:var(--gold); }
+    a.email{ color:var(--gold); text-decoration:none; border-bottom:1px dashed var(--gold); }
+    a.email:hover{ color:var(--bone); border-bottom-color:var(--bone); }
+
+    /* Loading state on button */
+    .tier-btn.loading{ opacity:.6; pointer-events:none; }
+    .tier-btn.loading::after{ content:""; width:10px; height:10px; border:1.5px solid currentColor; border-top-color:transparent; border-radius:50%; margin-left:6px; animation:spin .7s linear infinite; }
+    @keyframes spin{ to{ transform:rotate(360deg); } }
+
+    /* Toast */
+    .toast{ position:fixed; bottom:28px; left:50%; transform:translateX(-50%) translateY(20px); padding:14px 20px; background:var(--void); border:1px solid var(--gold); color:var(--bone); font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; opacity:0; pointer-events:none; transition:opacity .3s, transform .3s; z-index:100; max-width:calc(100vw - 40px); }
+    .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+  </style>
+  <link rel="stylesheet" href="assets/css/nav.css" />
+  <link rel="stylesheet" href="assets/css/fx.css" />
+  <link rel="stylesheet" href="assets/css/fx2.css" />
+  <link rel="stylesheet" href="assets/css/fx3.css" />
+  <link rel="stylesheet" href="assets/css/fx4.css">
+  <link rel="stylesheet" href="assets/css/fx5.css">
+  <script defer data-domain="shadowrealmhq.com" src="https://plausible.io/js/script.outbound-links.js"></script>
+  <!-- social: realm hq -->
+  <meta property="og:site_name" content="Realm HQ" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="en_AU" />
+  <meta property="og:title" content="Shop · Realm HQ" />
+  <meta property="og:description" content="Clearance tiers, live and certifiable. Merch drops incoming. Realm Certified. Numbered. Limited." />
+  <meta property="og:url" content="https://shadowrealmhq.com/shop" />
+  <meta property="og:image" content="https://shadowrealmhq.com/assets/og-card.jpg" />
+  <meta property="og:image:secure_url" content="https://shadowrealmhq.com/assets/og-card.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="SHADOW REALM — Realm Certified. Officially unofficial." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Shop · Realm HQ" />
+  <meta name="twitter:description" content="Clearance tiers, live and certifiable. Merch drops incoming. Realm Certified. Numbered. Limited." />
+  <meta name="twitter:image" content="https://shadowrealmhq.com/assets/og-card.jpg" />
+  <meta name="twitter:image:alt" content="SHADOW REALM — Realm Certified. Officially unofficial." />
+</head>
+<body>
+  <!-- Header (shared markup, assets/css/nav.css + assets/js/nav.js) -->
+  <header class="hdr-lite" id="hdrLite">
+    <a class="hdr-lite-brand" href="index.html" aria-label="Realm HQ home">
+      <img src="assets/logo-crown.png" alt="" width="34" height="34" />
+      <span>SHADOW REALM<small>REALM HQ · DISPATCH DESK</small></span>
+    </a>
+    <nav class="hdr-lite-nav" aria-label="Primary">
+        <a href="shop.html" class="is-active">Shop</a>
+        <a href="music.html">Music</a>
+        <a href="quiz.html">Quiz</a>
+        <a href="vault.html">Vault</a>
+        <a href="terminal.html">Terminal</a>
+        <a href="index.html#personnel">Personnel</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+    <div class="hdr-lite-status" aria-live="off">
+      <span class="dot" aria-hidden="true"></span><span class="label-full">SIGNAL:&nbsp;</span><span class="status-word" data-fx-status>RECEIVING</span>
+    </div>
+    <button class="hdr-burger" id="hdrBurger" type="button" aria-expanded="false"
+            aria-controls="hdrDrawer" aria-label="Open navigation">
+      <span></span><span></span><span></span>
+    </button>
+    <span class="hdr-lite-depth" id="hdrDepth" aria-hidden="true"></span>
+  </header>
+
+<div class="hdr-drawer" id="hdrDrawer" role="dialog" aria-modal="true" aria-label="Realm HQ navigation" aria-hidden="true">
+    <div class="hdr-drawer-head">
+      <span class="hdr-drawer-tag">REALM HQ · ACCESS PANEL</span>
+      <button class="hdr-drawer-close" type="button" aria-label="Close navigation">✕</button>
+    </div>
+    <nav class="hdr-drawer-nav" aria-label="Mobile primary">
+      <a href="shop.html" class="is-active">Shop</a>
+      <a href="music.html">Music</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="vault.html">Vault</a>
+      <a href="index.html#personnel">Personnel</a>
+      <a href="index.html#feed">Live Feed</a>
+      <a href="index.html#tiers">Clearance</a>
+      <a href="terminal.html">Terminal</a>
+      <a href="contact.html">Contact</a>
+      <a href="index.html#enlist">Enlist</a>
+    </nav>
+    <div class="hdr-drawer-foot">
+      <span>EST DAY 5</span>
+      <span>CLASSIFICATION: COOKED</span>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="file-no">FILE SHP-001 · DISPATCH DESK</div>
+    <h1>The <span class="glow">Shop.</span></h1>
+    <div class="sub">CLEARANCE TIERS · MERCH INCOMING · REALM HQ · EST DAY 5</div>
+
+    <!-- Before you enlist -->
+    <section class="enlist-info" aria-labelledby="enlistInfoH">
+      <h2 id="enlistInfoH">Before you enlist</h2>
+      <p class="lead">A Realm HQ clearance is a digital membership. Checkout and card details are handled by Stripe. HQ never sees or stores your card. Read the terms of engagement below, then pick a standing.</p>
+      <dl>
+        <div>
+          <dt>Billing and renewal</dt>
+          <dd>Monthly and annual tiers renew automatically at the price shown, in AUD, until you cancel. Lifetime is a single one-off payment with no renewal. The exact amount and cadence are confirmed on the Stripe checkout screen before you pay.</dd>
+        </div>
+        <div>
+          <dt>Cancellation</dt>
+          <dd>Cancel any time from the <a href="terminal">Terminal</a> via Manage billing (the Stripe billing portal). Access runs to the end of the period already paid; no partial-period refunds.</dd>
+        </div>
+        <div>
+          <dt>Tax</dt>
+          <dd>Prices are listed in Australian dollars. Any tax that applies to your location is calculated and displayed by Stripe at checkout before payment.</dd>
+        </div>
+        <div>
+          <dt>What a clearance includes</dt>
+          <dd>Digital entitlements only: the drop discount, channel access and file access listed on each tier. Elite and Realm Certified also unseal the Vault. Nothing physical ships with a clearance.</dd>
+        </div>
+        <div>
+          <dt>Physical products</dt>
+          <dd>Field-issue merch is sold separately and is currently unreleased. A clearance tier does not include any physical item, and buying a tier never ships goods.</dd>
+        </div>
+        <div>
+          <dt>After checkout</dt>
+          <dd>Stripe returns you to the <a href="access.html">Access desk</a>, which confirms your clearance once HQ posts it to the register (usually within a minute). A confirmation transmission follows by email.</dd>
+        </div>
+      </dl>
+      <div class="enlist-links">
+        <span>Fine print:</span>
+        <a href="policy/terms.html">Terms</a>
+        <a href="policy/privacy.html">Privacy</a>
+        <a href="policy/shipping.html">Shipping</a>
+        <a href="policy/returns.html">Returns</a>
+        <span>· Billing support: <a href="mailto:realmcertified@gmail.com">hq@shadowrealmhq.com</a></span>
+      </div>
+    </section>
+
+    <!-- Tiers -->
+    <div class="billing-row">
+      <div class="section-h">Clearance tiers · live</div>
+      <div class="toggle" role="tablist" aria-label="Billing cadence">
+        <button data-cadence="monthly" class="active">Monthly</button>
+        <button data-cadence="annual">Annual</button>
+        <button data-cadence="lifetime">Lifetime</button>
+      </div>
+    </div>
+
+    <div class="tier-grid" id="tierGrid">
+      <!-- Jackal -->
+      <article class="tier" data-tier="jackal">
+        <div class="tier-tag">CLEARANCE 02</div>
+        <h2 class="tier-name">Jackal</h2>
+        <p class="tier-desc">Fast. Quiet. Dangerous. First taste of the register.</p>
+        <div class="tier-price">
+          <span class="amt" data-price="jackal-monthly">$0.99</span>
+          <span class="cadence" data-cadence-label>/mo AUD</span>
+        </div>
+        <ul class="tier-perks">
+          <li>12% off all drops</li>
+          <li>Early drop access</li>
+          <li>Jackal tag on The Wall</li>
+        </ul>
+        <button class="tier-btn" data-checkout data-price-id="price_1ToIyxJo6iTz2N7aWh5VOcnh">Enlist as Jackal</button>
+      </article>
+
+      <!-- Brute -->
+      <article class="tier" data-tier="brute">
+        <div class="tier-tag">CLEARANCE 03</div>
+        <h2 class="tier-name">Brute</h2>
+        <p class="tier-desc">No subtlety. Maximum impact. Doors open wider.</p>
+        <div class="tier-price">
+          <span class="amt" data-price="brute-monthly">$1.99</span>
+          <span class="cadence" data-cadence-label>/mo AUD</span>
+        </div>
+        <ul class="tier-perks">
+          <li>15% off all drops</li>
+          <li>Brute merch access</li>
+          <li>Private channel entry</li>
+        </ul>
+        <button class="tier-btn" data-checkout data-price-id="price_1ToIywJo6iTz2N7aXu5j1Vmo">Enlist as Brute</button>
+      </article>
+
+      <!-- Elite -->
+      <article class="tier" data-tier="elite">
+        <div class="tier-tag">CLEARANCE 04</div>
+        <h2 class="tier-name">Elite</h2>
+        <p class="tier-desc">By invitation. By reputation. Founders wall, first access.</p>
+        <div class="tier-price">
+          <span class="amt" data-price="elite-monthly">$3.49</span>
+          <span class="cadence" data-cadence-label>/mo AUD</span>
+        </div>
+        <ul class="tier-perks">
+          <li>18% off all drops</li>
+          <li>Elite-only limited drops</li>
+          <li>Founders wall placement</li>
+          <li>First access on new files</li>
+        </ul>
+        <button class="tier-btn" data-checkout data-price-id="price_1ToIyyJo6iTz2N7aVD5uEVIi">Enlist as Elite</button>
+      </article>
+
+      <!-- Realm Certified -->
+      <article class="tier featured" data-tier="realm_certified">
+        <span class="tier-badge">Recommended</span>
+        <div class="tier-tag">CLEARANCE 05</div>
+        <h2 class="tier-name">Realm Certified</h2>
+        <p class="tier-desc">Certified. Feared. Respected. The full register.</p>
+        <div class="tier-price">
+          <span class="amt" data-price="realm_certified-monthly">$5.49</span>
+          <span class="cadence" data-cadence-label>/mo AUD</span>
+        </div>
+        <ul class="tier-perks">
+          <li>20% off all drops</li>
+          <li>RC private chat</li>
+          <li>Priority 24/7 support</li>
+          <li>Exclusive lore, vault, and files</li>
+        </ul>
+        <button class="tier-btn primary" data-checkout data-price-id="price_1ToIyyJo6iTz2N7aMP2cgVhw">Get Realm Certified</button>
+      </article>
+    </div>
+
+    <!-- Merch -->
+    <div class="merch-h">
+      <div class="section-h">Field issue · merch</div>
+      <div class="merch-note" id="merchNote">CLASSIFIED · DROP INCOMING</div>
+    </div>
+
+    <div class="merch-grid" id="merchGrid">
+      <article class="merch">
+        <div class="merch-thumb">FIELD TEE · MOCK</div>
+        <h3 class="merch-title">Realm Certified Tee</h3>
+        <div class="merch-meta">FIELD KIT · UNIT 01 · UNRELEASED</div>
+        <div class="merch-status incoming">STAND BY · Q3 DROP</div>
+      </article>
+
+      <article class="merch">
+        <div class="merch-thumb">CAP · MOCK</div>
+        <h3 class="merch-title">Hot Mutt Cap</h3>
+        <div class="merch-meta">FIELD KIT · UNIT 02 · UNRELEASED</div>
+        <div class="merch-status incoming">STAND BY · Q3 DROP</div>
+      </article>
+
+      <article class="merch">
+        <div class="merch-thumb">PATCH · MOCK</div>
+        <h3 class="merch-title">EST Day 5 Patch</h3>
+        <div class="merch-meta">FIELD KIT · UNIT 03 · UNRELEASED</div>
+        <div class="merch-status classified">CLASSIFIED · COOKED</div>
+      </article>
+
+      <article class="merch">
+        <div class="merch-thumb">ACCESS CARD · MOCK</div>
+        <h3 class="merch-title">Physical Access Card</h3>
+        <div class="merch-meta">FIELD KIT · UNIT 04 · UNRELEASED</div>
+        <div class="merch-status classified">CLASSIFIED · COOKED</div>
+      </article>
+    </div>
+
+    <p style="margin-top:32px;font-size:13.5px;line-height:1.7;color:var(--bone-dim);">Every unit is numbered, issued in limited runs, and never restocked. When it is gone, it is filed in the Boneyard. That is not a marketing tactic. HQ simply forgets. Enquiries to <a class="email" href="mailto:realmcertified@gmail.com">hq@shadowrealmhq.com</a>.</p>
+
+    <div class="foot">
+      <span>FILE SHP-001 · ACTIVE</span>
+      <span class="seal">REALM HQ · ARCHIVE STAMP</span>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="assets/js/realm.js"></script>
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/page-shop.js"></script>
+<script src="assets/js/fx.js" defer></script>
+<script src="assets/js/fx2.js" defer></script>
+<script src="assets/js/fx3.js" defer></script>
+<script src="assets/js/fx4.js" defer></script>
+<script src="assets/js/fx5.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,215 @@
+/* ============================================================
+   REALM HQ — FX v5 STYLES
+   Loads after fx3.css on all 15 pages.
+
+   25. EDGE TRACE   · light runs the border of a card on hover
+   26. SIGNAL LOCK  · images acquire focus instead of fading in
+   27. ROW SCAN     · a scanner reads down list groups on entry
+   28. STAMP IMPACT · stamps land with weight instead of drifting
+   29. SIBLING DIM  · hovering one card recedes the rest
+
+   Everything here is compositor-friendly (opacity / filter /
+   scale / background-position) and unwinds under
+   prefers-reduced-motion at the foot of the file.
+   ============================================================ */
+
+/* ============================================================
+   25. EDGE TRACE
+   A single gold highlight travels the perimeter on hover. Built
+   from a conic-gradient clipped to a 1px ring by an xor mask, so
+   there is no extra DOM and no border repaint.
+
+   @property registers --fx4-ang as a real angle, which is what
+   makes it animatable. Browsers without @property ignore the
+   keyframe and simply get the static hover glow below — a fine
+   degradation, not a broken one.
+   ============================================================ */
+@property --fx4-ang {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@media (hover:hover) and (pointer:fine){
+  .op-card, .tier-card, .field-card, .quiz-panel,
+  .merch, .tier, .panel, .certificate{
+    position:relative;
+  }
+  .op-card::after, .tier-card::after,
+  .field-card::after, .quiz-panel::after,
+  .merch::after, .tier::after,
+  .panel::after, .certificate::after{
+    content:''; position:absolute; inset:-1px;
+    border-radius:inherit; padding:1px;
+    pointer-events:none; z-index:2;
+    opacity:0; transition:opacity .28s ease;
+    background:conic-gradient(from var(--fx4-ang),
+      transparent 0deg,
+      transparent 262deg,
+      rgba(212,175,55,.12) 292deg,
+      rgba(231,200,119,.95) 330deg,
+      rgba(212,175,55,.12) 352deg,
+      transparent 360deg);
+    /* Punch the middle out so only the 1px ring paints. */
+    -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor;
+            mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            mask-composite:exclude;
+  }
+  .op-card:hover::after,      .op-card:focus-within::after,
+  .tier-card:hover::after,    .tier-card:focus-within::after,
+  .field-card:hover::after,   .field-card:focus-within::after,
+  .quiz-panel:hover::after,   .quiz-panel:focus-within::after,
+  .merch:hover::after,        .merch:focus-within::after,
+  .tier:hover::after,         .tier:focus-within::after,
+  .panel:hover::after,        .panel:focus-within::after,
+  .certificate:hover::after,  .certificate:focus-within::after{
+    opacity:1;
+    animation:fx4Trace 1.9s linear infinite;
+  }
+}
+@keyframes fx4Trace{ to{ --fx4-ang:360deg; } }
+
+/* ============================================================
+   26. SIGNAL LOCK
+   Images arrive out of focus and desaturated, overshoot into a
+   hot contrast spike, then settle. Reads as a camera acquiring
+   the shot rather than a stock fade-in.
+
+   fx4.js adds .fx4-lock, so a JS failure leaves images fully
+   visible and untouched. There is also a hard failsafe in the
+   script that force-locks anything still pending after 4s.
+   ============================================================ */
+.fx4-lock{
+  opacity:0;
+  will-change:filter, opacity, transform;
+}
+.fx4-lock.is-locked{
+  opacity:1;
+  animation:fx4Acquire 1.05s cubic-bezier(.22,.68,.24,1) both;
+}
+/* No .fx4-done cleanup rule: fx4.js removes both hook classes on
+   animationend, which returns the image to its authored styles
+   outright rather than papering over them with overrides. */
+@keyframes fx4Acquire{
+  0%   { opacity:0;   transform:scale(1.045); filter:blur(11px) saturate(.15) contrast(1.45) brightness(.62); }
+  38%  { opacity:.92; transform:scale(1.018); filter:blur(4.5px) saturate(.55) contrast(1.7)  brightness(1.32); }
+  56%  { opacity:1;   transform:scale(1.006); filter:blur(5.5px) saturate(.42) contrast(1.55) brightness(.84); }
+  78%  {              transform:scale(1.001); filter:blur(.9px)  saturate(.94) contrast(1.1)  brightness(1.06); }
+  100% { opacity:1;   transform:scale(1);     filter:none; }
+}
+
+/* ============================================================
+   27. ROW SCAN
+   A narrow gold light passes across each row in a group, one
+   after the next, like something is reading the list.
+
+   The bar is a real injected <i>, not a pseudo-element. Rows and
+   cards overlap heavily — .tier-card is both an EDGE TRACE target
+   (::after) and a scan row, and .tier-card / .quiz-panel /
+   .certificate already carry a ::before in style.css. Rather than
+   play pseudo-element Tetris and silently clobber somebody's
+   decoration for the length of a sweep, fx4.js appends the bar,
+   runs it, and removes it again.
+   ============================================================ */
+.fx4-scan{ position:relative; }
+.fx4-scanbar{
+  content:''; position:absolute; inset:0;
+  display:block; pointer-events:none; z-index:1; opacity:0;
+  border-radius:inherit;
+  background-image:linear-gradient(100deg,
+    rgba(212,175,55,0)   38%,
+    rgba(212,175,55,.14) 47%,
+    rgba(231,200,119,.30) 50%,
+    rgba(212,175,55,.14) 53%,
+    rgba(212,175,55,0)   62%);
+  background-repeat:no-repeat;
+  background-size:260% 100%;
+  background-position:130% 0;
+}
+.fx4-scan.is-scan > .fx4-scanbar{
+  animation:fx4Scan .92s cubic-bezier(.38,0,.24,1) forwards;
+}
+@keyframes fx4Scan{
+  0%   { opacity:0; background-position:130% 0; }
+  14%  { opacity:1; }
+  86%  { opacity:1; }
+  100% { opacity:0; background-position:-70% 0; }
+}
+
+/* ============================================================
+   28. STAMP IMPACT
+   Stamps land instead of appearing.
+
+   Deliberately animates the standalone `scale` property, never
+   `transform`. Every stamp on the site already carries its own
+   `transform:rotate(...)` and clobbering it would knock them all
+   square. `scale` composes with `transform` rather than
+   replacing it, so the angles survive.
+
+   .access-stamp is excluded — the portal sequence owns it.
+   ============================================================ */
+.fx4-stamp{ opacity:0; }
+.fx4-stamp.is-struck{
+  animation:fx4Impact .62s cubic-bezier(.2,.9,.3,1) both;
+}
+@keyframes fx4Impact{
+  0%   { opacity:0;  scale:1.55; filter:blur(3.5px) brightness(1.7); }
+  46%  { opacity:1;  scale:.935; filter:blur(0)     brightness(1.55); }
+  64%  {             scale:1.038; }
+  82%  {             scale:.986; }
+  100% { opacity:1;  scale:1;    filter:none; }
+}
+
+/* ============================================================
+   29. SIBLING DIM
+   Hovering one card in a grid pushes the others back. Pure CSS
+   via :has(); browsers without it simply skip the rule.
+   ============================================================ */
+@media (hover:hover) and (pointer:fine){
+  .personnel-grid > .op-card,
+  .field-grid > .field-card,
+  .tiers-grid > .tier-card,
+  .merch-grid > .merch,
+  .tier-grid > .tier{
+    transition:opacity .32s ease, filter .32s ease;
+  }
+  .personnel-grid:has(> .op-card:hover) > .op-card:not(:hover),
+  .field-grid:has(> .field-card:hover) > .field-card:not(:hover),
+  .tiers-grid:has(> .tier-card:hover) > .tier-card:not(:hover),
+  .merch-grid:has(> .merch:hover) > .merch:not(:hover),
+  .tier-grid:has(> .tier:hover) > .tier:not(:hover){
+    opacity:.44;
+    filter:saturate(.55);
+  }
+}
+
+/* ============================================================
+   REDUCED MOTION
+   Nothing moves. Everything still ends up visible — the failure
+   mode for a motion layer must never be an invisible page.
+   ============================================================ */
+@media (prefers-reduced-motion: reduce){
+  .op-card::after, .tier-card::after,
+  .field-card::after, .quiz-panel::after,
+  .merch::after, .tier::after,
+  .panel::after, .certificate::after{
+    animation:none !important;
+  }
+  .fx4-lock, .fx4-lock.is-locked{
+    opacity:1 !important; animation:none !important;
+    filter:none !important; transform:none !important;
+  }
+  .fx4-scanbar{ display:none !important; }
+  .fx4-stamp, .fx4-stamp.is-struck{
+    opacity:1 !important; animation:none !important;
+    scale:1 !important; filter:none !important;
+  }
+  .personnel-grid:has(> .op-card:hover) > .op-card:not(:hover),
+  .field-grid:has(> .field-card:hover) > .field-card:not(:hover),
+  .tiers-grid:has(> .tier-card:hover) > .tier-card:not(:hover),
+  .merch-grid:has(> .merch:hover) > .merch:not(:hover),
+  .tier-grid:has(> .tier:hover) > .tier:not(:hover){
+    opacity:1; filter:none;
+  }
+}

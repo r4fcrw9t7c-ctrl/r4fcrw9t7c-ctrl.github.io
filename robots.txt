@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /terminal
+Disallow: /command
+
+Sitemap: https://shadowrealmhq.com/sitemap.xml

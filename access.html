@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en-AU" class="js">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Access · Realm HQ</title>
+  <meta name="description" content="Confirm your clearance after checkout and draft your Realm HQ access card. Numbered, classified, downloadable." />
+  <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#0a0806" />
+  <link rel="icon" href="assets/favicon-64.png" type="image/png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&display=swap" rel="stylesheet" />
+  <style>
+    :root{ --void:#0B0B0F; --bone:#F5F1E8; --bone-dim:#a8a8a8; --bone-faint:#6b6b6b; --gold:#D4AF37; --gold-hot:#F0C548; --hazard:#22D3EE; --realm-purple:#A855F7; --pale-realm:#E9D5FF; }
+    *{ box-sizing:border-box; }
+    html, body{ margin:0; padding:0; background:var(--void); color:var(--bone); font-family:'Space Grotesk', system-ui, sans-serif; }
+    body{ position:relative; min-height:100vh; }
+    body::before{ content:""; position:fixed; inset:0; background:repeating-linear-gradient(0deg, transparent 0, transparent 3px, rgba(255,255,255,.012) 3px, rgba(255,255,255,.012) 4px); pointer-events:none; z-index:1; }
+    .wrap{ position:relative; z-index:2; max-width:960px; margin:0 auto; padding:56px 24px 96px; }
+    .back{ display:inline-flex; align-items:center; gap:8px; color:var(--bone-dim); font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:.2em; text-transform:uppercase; text-decoration:none; margin-bottom:36px; }
+    .back:hover{ color:var(--gold); }
+    .file-no{ font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:.24em; color:var(--gold); margin-bottom:12px; }
+    h1{ font-family:'Cormorant Garamond', serif; font-weight:500; font-size:clamp(38px, 6vw, 60px); line-height:1.05; margin:0 0 14px; letter-spacing:-.01em; }
+    h1 .glow{ color:var(--gold); font-style:italic; }
+    .sub{ font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--bone-faint); margin-bottom:44px; padding-bottom:20px; border-bottom:1px dashed rgba(212,175,55,.25); }
+
+    .grid{ display:grid; grid-template-columns:1fr; gap:32px; align-items:start; }
+    @media(min-width:820px){ .grid{ grid-template-columns:340px 1fr; gap:44px; } }
+
+    /* Form */
+    .form-block{ display:flex; flex-direction:column; gap:16px; }
+    .field label{ display:block; font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:.24em; text-transform:uppercase; color:var(--gold); margin-bottom:6px; }
+    .field input, .field select{ width:100%; padding:11px 12px; background:rgba(255,255,255,.02); border:1px solid rgba(212,175,55,.3); color:var(--bone); font-family:'JetBrains Mono', monospace; font-size:13px; letter-spacing:.02em; outline:none; transition:border-color .18s, background .18s; }
+    .field input:focus, .field select:focus{ border-color:var(--gold); background:rgba(212,175,55,.04); }
+    .field .hint{ margin-top:6px; font-family:'JetBrains Mono', monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--bone-faint); }
+    .row-btns{ display:flex; gap:10px; flex-wrap:wrap; margin-top:8px; }
+    .btn{ display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:12px 18px; border:1px solid var(--gold); background:transparent; color:var(--gold); font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:.22em; text-transform:uppercase; text-decoration:none; cursor:pointer; transition:background .18s, color .18s; }
+    .btn:hover{ background:var(--gold); color:var(--void); }
+    .btn.primary{ background:var(--gold); color:var(--void); }
+    .btn.primary:hover{ background:transparent; color:var(--gold); }
+    .btn:disabled{ opacity:.5; cursor:not-allowed; }
+
+    /* Card preview */
+    .card-wrap{ display:flex; flex-direction:column; gap:14px; }
+    .card-note{ font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:.22em; text-transform:uppercase; color:var(--bone-faint); }
+    .card-frame{ position:relative; width:100%; aspect-ratio:1.586/1; background:linear-gradient(135deg, #0e0d15 0%, #14111c 100%); border:1px solid rgba(212,175,55,.35); overflow:hidden; }
+    .card-frame::before{ content:""; position:absolute; inset:0; background:repeating-linear-gradient(90deg, transparent 0, transparent 6px, rgba(255,255,255,.02) 6px, rgba(255,255,255,.02) 7px); pointer-events:none; }
+    .card-frame::after{ content:""; position:absolute; inset:8px; border:1px dashed rgba(212,175,55,.22); pointer-events:none; }
+    .card-canvas{ display:block; width:100%; height:100%; }
+
+    .foot{ margin-top:56px; padding-top:24px; border-top:1px solid rgba(212,175,55,.2); font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--bone-faint); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+    .foot .seal{ color:var(--gold); }
+    a.email{ color:var(--gold); text-decoration:none; border-bottom:1px dashed var(--gold); }
+    a.email:hover{ color:var(--bone); border-bottom-color:var(--bone); }
+
+    .toast{ position:fixed; bottom:28px; left:50%; transform:translateX(-50%) translateY(20px); padding:14px 20px; background:var(--void); border:1px solid var(--gold); color:var(--bone); font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; opacity:0; pointer-events:none; transition:opacity .3s, transform .3s; z-index:100; max-width:calc(100vw - 40px); text-align:center; }
+    .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+    /* Post-checkout activation */
+    .activate{ border:1px solid rgba(212,175,55,.35); background:linear-gradient(180deg, rgba(212,175,55,.06), rgba(255,255,255,.015)); padding:30px 26px; margin-bottom:44px; }
+    .activate .tag{ display:inline-block; font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:.24em; text-transform:uppercase; padding:4px 10px; border:1px solid rgba(212,175,55,.35); color:var(--gold); margin-bottom:14px; }
+    .activate h2{ font-family:'Cormorant Garamond',serif; font-weight:600; font-size:30px; margin:0 0 12px; }
+    .activate p{ font-size:13.5px; line-height:1.7; color:var(--bone-dim); margin:0 0 8px; }
+    .activate .status{ font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:.06em; color:var(--hazard); margin-top:14px; min-height:16px; }
+    .activate .status.err{ color:#FF2B9C; }
+    .activate .spin{ display:inline-block; width:12px; height:12px; border:2px solid var(--gold); border-top-color:transparent; border-radius:50%; animation:spin .7s linear infinite; vertical-align:-2px; margin-right:8px; }
+    @keyframes spin{ to{ transform:rotate(360deg); } }
+    .activate .actions{ display:flex; gap:12px; flex-wrap:wrap; margin-top:18px; }
+    .secondary-head{ font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.24em; text-transform:uppercase; color:var(--bone-faint); margin:0 0 20px; padding-bottom:14px; border-bottom:1px dashed rgba(212,175,55,.2); }
+    .hidden{ display:none !important; }
+  </style>
+  <link rel="stylesheet" href="assets/css/nav.css" />
+  <link rel="stylesheet" href="assets/css/fx.css" />
+  <link rel="stylesheet" href="assets/css/fx2.css" />
+  <link rel="stylesheet" href="assets/css/fx3.css" />
+  <link rel="stylesheet" href="assets/css/fx4.css">
+  <link rel="stylesheet" href="assets/css/fx5.css">
+<link rel="canonical" href="https://shadowrealmhq.com/access" />
+  <script defer data-domain="shadowrealmhq.com" src="https://plausible.io/js/script.outbound-links.js"></script>
+  <!-- social: realm hq -->
+  <meta property="og:site_name" content="Realm HQ" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="en_AU" />
+  <meta property="og:title" content="Access · Realm HQ" />
+  <meta property="og:description" content="Confirm your clearance after checkout and draft your Realm HQ access card. Numbered, classified, downloadable." />
+  <meta property="og:url" content="https://shadowrealmhq.com/access" />
+  <meta property="og:image" content="https://shadowrealmhq.com/assets/og-card.jpg" />
+  <meta property="og:image:secure_url" content="https://shadowrealmhq.com/assets/og-card.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="SHADOW REALM — Realm Certified. Officially unofficial." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Access · Realm HQ" />
+  <meta name="twitter:description" content="Confirm your clearance after checkout and draft your Realm HQ access card. Numbered, classified, downloadable." />
+  <meta name="twitter:image" content="https://shadowrealmhq.com/assets/og-card.jpg" />
+  <meta name="twitter:image:alt" content="SHADOW REALM — Realm Certified. Officially unofficial." />
+</head>
+<body>
+  <!-- Header (shared markup, assets/css/nav.css + assets/js/nav.js) -->
+  <header class="hdr-lite" id="hdrLite">
+    <a class="hdr-lite-brand" href="index.html" aria-label="Realm HQ home">
+      <img src="assets/logo-crown.png" alt="" width="34" height="34" />
+      <span>SHADOW REALM<small>REALM HQ · ACCESS CONTROL</small></span>
+    </a>
+    <nav class="hdr-lite-nav" aria-label="Primary">
+        <a href="shop.html">Shop</a>
+        <a href="music.html">Music</a>
+        <a href="quiz.html">Quiz</a>
+        <a href="vault.html">Vault</a>
+        <a href="terminal.html">Terminal</a>
+        <a href="index.html#personnel">Personnel</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+    <div class="hdr-lite-status" aria-live="off">
+      <span class="dot" aria-hidden="true"></span><span class="label-full">SIGNAL:&nbsp;</span><span class="status-word" data-fx-status>RECEIVING</span>
+    </div>
+    <button class="hdr-burger" id="hdrBurger" type="button" aria-expanded="false"
+            aria-controls="hdrDrawer" aria-label="Open navigation">
+      <span></span><span></span><span></span>
+    </button>
+    <span class="hdr-lite-depth" id="hdrDepth" aria-hidden="true"></span>
+  </header>
+
+<div class="hdr-drawer" id="hdrDrawer" role="dialog" aria-modal="true" aria-label="Realm HQ navigation" aria-hidden="true">
+    <div class="hdr-drawer-head">
+      <span class="hdr-drawer-tag">REALM HQ · ACCESS PANEL</span>
+      <button class="hdr-drawer-close" type="button" aria-label="Close navigation">✕</button>
+    </div>
+    <nav class="hdr-drawer-nav" aria-label="Mobile primary">
+      <a href="shop.html">Shop</a>
+      <a href="music.html">Music</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="vault.html">Vault</a>
+      <a href="index.html#personnel">Personnel</a>
+      <a href="index.html#feed">Live Feed</a>
+      <a href="index.html#tiers">Clearance</a>
+      <a href="terminal.html">Terminal</a>
+      <a href="contact.html">Contact</a>
+      <a href="index.html#enlist">Enlist</a>
+    </nav>
+    <div class="hdr-drawer-foot">
+      <span>EST DAY 5</span>
+      <span>CLASSIFICATION: COOKED</span>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="file-no">FILE ACC-001 · CLEARANCE DESK</div>
+    <h1>The <span class="glow">clearance desk.</span></h1>
+    <div class="sub">POST-CHECKOUT ACTIVATION · REALM HQ</div>
+
+    <!-- Post-checkout activation (only shown when arriving from Stripe with a
+         real session_id, or returning cancelled). Confirmation is only ever
+         rendered after the server verifies the checkout session. -->
+    <section class="activate hidden" id="activate">
+      <span class="tag" id="actTag">ACTIVATION</span>
+      <h2 id="actTitle">Confirming your clearance…</h2>
+      <p id="actBody">Checking the register with HQ. This takes a moment while the payment posts.</p>
+      <div class="status" id="actStatus"><span class="spin"></span> Verifying payment…</div>
+      <div class="actions" id="actActions"></div>
+    </section>
+
+    <p class="secondary-head hidden" id="cardHead">SECONDARY · ACCESS CARD DRAFT (PROMOTIONAL, DOES NOT GRANT CLEARANCE)</p>
+
+    <div class="grid">
+      <div class="form-block">
+        <div class="field">
+          <label for="opName">Operative name</label>
+          <input id="opName" type="text" maxlength="24" value="OPERATIVE" autocomplete="off" />
+          <div class="hint">MAX 24 CHAR · SHOWS ON CARD</div>
+        </div>
+        <div class="field">
+          <label for="opCallsign">Callsign</label>
+          <input id="opCallsign" type="text" maxlength="16" value="HOT MUTT" autocomplete="off" />
+          <div class="hint">OPTIONAL · REALM-STYLE ALIAS</div>
+        </div>
+        <div class="field">
+          <label for="opClear">Clearance level</label>
+          <select id="opClear">
+            <option value="1">01 · JACKAL</option>
+            <option value="2">02 · BRUTE</option>
+            <option value="3">03 · ELITE</option>
+            <option value="4">04 · SPECIAL OP</option>
+            <option value="5" selected>05 · REALM CERTIFIED</option>
+          </select>
+          <div class="hint">SELF-DECLARED · PENDING VERIFICATION</div>
+        </div>
+        <div class="field">
+          <label for="opCell">Cell</label>
+          <select id="opCell">
+            <option value="BONEYARD" selected>BONEYARD</option>
+            <option value="CRESTWOOD">CRESTWOOD</option>
+            <option value="BUNGONIA">BUNGONIA FLATS</option>
+            <option value="VAULT">THE VAULT</option>
+            <option value="HQ">REALM HQ</option>
+            <option value="FIELD">FIELD OFFICE</option>
+          </select>
+          <div class="hint">POST OF ASSIGNMENT</div>
+        </div>
+
+        <div class="row-btns">
+          <button class="btn primary" id="btnDownload">Download PNG</button>
+          <button class="btn" id="btnRandom">Randomise ID</button>
+        </div>
+      </div>
+
+      <div class="card-wrap">
+        <div class="card-note">LIVE PREVIEW · CARD DRAFTS DO NOT GRANT ACCESS</div>
+        <div class="card-frame">
+          <canvas id="cardCanvas" class="card-canvas" width="1240" height="781" aria-label="Realm HQ access card preview"></canvas>
+        </div>
+        <div class="card-note">FOR PROMOTIONAL USE ONLY · REALM CERTIFIED IS THE ONLY OFFICIAL CLEARANCE</div>
+      </div>
+    </div>
+
+    <div class="foot">
+      <span>FILE ACC-001 · ACTIVE</span>
+      <span class="seal">REALM HQ · ARCHIVE STAMP</span>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="assets/js/realm.js"></script>
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/page-access.js"></script>
+<script src="assets/js/fx.js" defer></script>
+<script src="assets/js/fx2.js" defer></script>
+<script src="assets/js/fx3.js" defer></script>
+<script src="assets/js/fx4.js" defer></script>
+<script src="assets/js/fx5.js" defer></script>
+</body>
+</html>

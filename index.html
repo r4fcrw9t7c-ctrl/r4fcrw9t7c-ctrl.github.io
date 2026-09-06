@@ -1,0 +1,788 @@
+<!doctype html>
+<html lang="en-AU" class="js">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Realm HQ · Portal Edition</title>
+<meta name="description" content="Shadow Realm HQ. Realm Certified. Officially unofficial. Access is not guaranteed." />
+<meta name="theme-color" content="#0a0806" />
+<link rel="canonical" href="https://shadowrealmhq.com/" />
+<link rel="icon" href="assets/favicon-64.png" type="image/png" />
+  <!-- v6-icons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"Organization","@id":"https://shadowrealmhq.com/#org","name":"Shadow Realm HQ","url":"https://shadowrealmhq.com/","logo":"https://shadowrealmhq.com/assets/logo-crown.png","email":"hq@shadowrealmhq.com","sameAs":["https://www.instagram.com/realmcertified","https://www.tiktok.com/@realmcertified","https://youtube.com/@realmcertified"]},
+{"@type":"WebSite","@id":"https://shadowrealmhq.com/#site","url":"https://shadowrealmhq.com/","name":"Shadow Realm HQ","publisher":{"@id":"https://shadowrealmhq.com/#org"}}
+]}
+</script>
+  <link rel="stylesheet" href="assets/css/nav.css" />
+  <link rel="stylesheet" href="assets/css/fx.css" />
+  <link rel="stylesheet" href="assets/css/fx2.css" />
+  <link rel="stylesheet" href="assets/css/fx3.css" />
+  <link rel="stylesheet" href="assets/css/fx4.css">
+  <link rel="stylesheet" href="assets/css/fx5.css">
+  <link rel="stylesheet" href="assets/css/portal2.css" />
+  <script defer data-domain="shadowrealmhq.com" src="https://plausible.io/js/script.outbound-links.js"></script>
+  <!-- social: realm hq -->
+  <meta property="og:site_name" content="Realm HQ" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="en_AU" />
+  <meta property="og:title" content="Realm HQ · Portal Edition" />
+  <meta property="og:description" content="Shadow Realm HQ. Realm Certified. Officially unofficial. Access is not guaranteed." />
+  <meta property="og:url" content="https://shadowrealmhq.com/" />
+  <meta property="og:image" content="https://shadowrealmhq.com/assets/og-card.jpg" />
+  <meta property="og:image:secure_url" content="https://shadowrealmhq.com/assets/og-card.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="SHADOW REALM — Realm Certified. Officially unofficial." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Realm HQ · Portal Edition" />
+  <meta name="twitter:description" content="Shadow Realm HQ. Realm Certified. Officially unofficial. Access is not guaranteed." />
+  <meta name="twitter:image" content="https://shadowrealmhq.com/assets/og-card.jpg" />
+  <meta name="twitter:image:alt" content="SHADOW REALM — Realm Certified. Officially unofficial." />
+</head>
+<body>
+
+<a class="skip-link" href="#drop">Skip to content</a>
+
+<noscript>
+  <div class="noscript-banner">Realm HQ runs a theatrical entry sequence with JavaScript. It is switched off, so you are looking at the plain file. Everything below still works.</div>
+</noscript>
+
+<!-- Inline SVG defs (turbulence filter for liquid rift) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="liquidTurb" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.011" numOctaves="2" seed="4">
+        <animate attributeName="baseFrequency" dur="28s" values="0.011;0.018;0.011" repeatCount="indefinite" />
+      </feTurbulence>
+      <feDisplacementMap in="SourceGraphic" scale="34" />
+    </filter>
+    <filter id="liquidTurb2" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="3" seed="9">
+        <animate attributeName="baseFrequency" dur="36s" values="0.018;0.011;0.018" repeatCount="indefinite" />
+      </feTurbulence>
+      <feDisplacementMap in="SourceGraphic" scale="22" />
+    </filter>
+  </defs>
+</svg>
+
+<!-- ============ PORTAL LAYER ============ -->
+<section class="portal-stage" id="portalStage" aria-label="Realm HQ portal entry">
+  <div class="portal-vhs" aria-hidden="true"></div>
+  <div class="portal-noise" aria-hidden="true"></div>
+  <div class="portal-vignette" aria-hidden="true"></div>
+
+  <!-- Rift -->
+  <div class="rift" aria-hidden="true">
+    <div class="rift-aurora"></div>
+    <div class="rift-aurora b"></div>
+    <div class="rift-liquid"></div>
+    <div class="rift-liquid b"></div>
+    <div class="rift-rim"></div>
+    <div class="rift-crown">
+      <img src="assets/logo-crown.png" alt="" />
+    </div>
+  </div>
+
+  <!-- HUD corners -->
+  <div class="portal-hud hud-tl" aria-hidden="true">
+    <span class="hud-line">REALM HQ · SECURE TERMINAL</span>
+    <span class="hud-line">CH 001 · ENCRYPTED</span>
+    <span class="hud-line hud-ok">&gt; handshake ok</span>
+  </div>
+  <div class="portal-hud hud-tr" aria-hidden="true">
+    <span class="hud-line">EST DAY 5 · ONGOING</span>
+    <span class="hud-line">SIGNAL: <span class="hud-ok">STABLE</span></span>
+    <span class="hud-line">GRID · NSW / 35.28°S</span>
+  </div>
+  <div class="portal-hud hud-bl" aria-hidden="true">
+    <span class="hud-line">&gt; verifying clearance...</span>
+    <span class="hud-line">&gt; nuttar water level: <span class="hud-hot">LOW</span></span>
+    <span class="hud-line">&gt; boneyard: quiet</span>
+  </div>
+  <div class="portal-hud hud-br" aria-hidden="true">
+    <span class="hud-line">PROTOCOL 07.24 · <span class="hud-ok">ACTIVE</span></span>
+    <span class="hud-line">CLASSIFICATION: <span class="hud-hot">COOKED</span></span>
+    <span class="hud-line">OPERATIVE UNKNOWN</span>
+  </div>
+
+  <!-- CTA -->
+  <div class="portal-cta">
+    <p class="portal-lede">Access is not guaranteed.</p>
+    <button class="enter-btn" id="enterBtn" type="button" aria-label="Enter the Realm">
+      ENTER THE REALM <span class="btn-arrow">→</span>
+    </button>
+    <p class="portal-fine">By entering you accept the Realm Certified terms. Whatever those are.</p>
+  </div>
+</section>
+
+<!-- ============ POST-ENTRY SITE ============ -->
+<main class="site" id="site">
+
+  <div class="site-bg" aria-hidden="true"></div>
+  <div class="site-noise" aria-hidden="true"></div>
+
+  <!-- Access Granted stamp -->
+  <div class="access-stamp" id="accessStamp" aria-hidden="true">
+    ACCESS GRANTED
+    <small>OPERATIVE · 03:17 · EST DAY UNKNOWN</small>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <a href="index.html" class="hdr-brand" aria-label="Realm HQ home">
+      <img src="assets/logo-crown.png" alt="" />
+      <span class="hdr-brand-txt">
+        SHADOW REALM
+        <small>REALM HQ · EST DAY 5</small>
+      </span>
+    </a>
+    <nav class="hdr-nav" aria-label="Primary">
+      <a href="shop.html">Shop</a>
+      <a href="music.html">Music</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="vault.html">Vault</a>
+      <a href="#personnel">Personnel</a>
+      <a href="#tiers">Clearance</a>
+      <a href="terminal.html">Terminal</a>
+      <a href="contact.html">Contact</a>
+      <a href="#enlist">Enlist</a>
+    </nav>
+    <div class="hdr-status" aria-live="polite">
+      <span class="dot"></span> <span class="label-full">REALM STATUS:&nbsp;</span><span class="status-word" id="statusWord">ONLINE</span>
+    </div>
+    <button class="hdr-burger" id="hdrBurger" type="button" aria-expanded="false" aria-controls="hdrDrawer" aria-label="Open navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- Mobile drawer -->
+  <div class="hdr-drawer" id="hdrDrawer" role="dialog" aria-modal="true" aria-label="Realm HQ navigation" aria-hidden="true">
+    <div class="hdr-drawer-head">
+      <span class="hdr-drawer-tag">REALM HQ · ACCESS PANEL</span>
+      <button class="hdr-drawer-close" type="button" aria-label="Close navigation">✕</button>
+    </div>
+    <nav class="hdr-drawer-nav" aria-label="Mobile primary">
+      <a href="shop.html">Shop</a>
+      <a href="music.html">Music</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="vault.html">Vault</a>
+      <a href="index.html#personnel">Personnel</a>
+      <a href="index.html#feed">Live Feed</a>
+      <a href="index.html#tiers">Clearance</a>
+      <a href="terminal.html">Terminal</a>
+      <a href="contact.html">Contact</a>
+      <a href="index.html#enlist">Enlist</a>
+    </nav>
+    <div class="hdr-drawer-foot">
+      <span>EST DAY 5</span>
+      <span>CLASSIFICATION: COOKED</span>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-file-tag">
+        FILE 001 · TRANSMISSION <span class="redact">CLEARED</span>
+      </div>
+      <h1>
+        You found<br />
+        the <span class="glow">door.</span>
+      </h1>
+      <p class="hero-sub">
+        Realm HQ runs on nuttar water, dry humour and the last two brain cells in Bungonia. You're inside now. Wipe your feet.
+      </p>
+      <div class="hero-actions">
+        <a href="#drop" class="btn btn-primary">VIEW CURRENT DROP <span>→</span></a>
+        <a href="vault.html" class="btn btn-ghost">OPEN THE VAULT</a>
+      </div>
+    </div>
+    <div class="hero-portal-echo" aria-hidden="true">
+      <img src="assets/logo-crown.png" alt="" />
+    </div>
+    <div class="hero-ticker" aria-hidden="true">
+      <div class="hero-ticker-track">
+        <span>REALM CERTIFIED <span class="plus">+</span></span>
+        <span>EST DAY 5 <span class="plus">+</span></span>
+        <span>OFFICIALLY UNOFFICIAL <span class="plus">+</span></span>
+        <span>DISPATCHED FROM NSW <span class="plus">+</span></span>
+        <span>CLASSIFICATION: COOKED <span class="plus">+</span></span>
+        <span>HOT MUTT ON PATROL <span class="plus">+</span></span>
+        <span>THE BONEYARD IS QUIET <span class="plus">+</span></span>
+        <span>NUTTAR WATER: LOW <span class="plus">+</span></span>
+        <span>REALM CERTIFIED <span class="plus">+</span></span>
+        <span>EST DAY 5 <span class="plus">+</span></span>
+        <span>OFFICIALLY UNOFFICIAL <span class="plus">+</span></span>
+        <span>DISPATCHED FROM NSW <span class="plus">+</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Music transmission banner -->
+  <aside class="music-banner reveal" aria-label="Realm HQ transmissions">
+    <div class="music-banner-inner">
+      <div class="music-banner-l">
+        <span class="music-banner-kicker">FEATURED SINGLE · REALM CERTIFIED</span>
+        <div class="music-banner-marquee" aria-hidden="true">
+          <span>▶ NOW PLAYING · STATIC BETWEEN US · THE FIRST REALM SONG · FILED UNDER CH 001 · HOT MUTT APPROVED · 3:17AM CUT ·</span>
+          <span>▶ NOW PLAYING · STATIC BETWEEN US · THE FIRST REALM SONG · FILED UNDER CH 001 · HOT MUTT APPROVED · 3:17AM CUT ·</span>
+        </div>
+        <h3 class="music-banner-title">Static Between Us. <span class="muted">Now streaming.</span></h3>
+        <p class="music-banner-lede">First Realm-certified single is live · video and audio, straight from the Boneyard. Hit the Music tab, press play, phone face-down.</p>
+      </div>
+      <div class="music-banner-r">
+        <a href="music.html#featuredVideo" class="btn btn-primary">PLAY THE REALM SONG <span>→</span></a>
+        <span class="music-banner-fine">TRACK 01 · 02:39 · REALM SIGNAL</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Featured Drop -->
+  <section class="section drop reveal" id="drop">
+    <div class="section-inner">
+      <div class="section-kicker">CURRENT FIELD ISSUE / DROP 001</div>
+      <h2>White Realm Certified Cap</h2>
+      <p class="section-lede">
+        Six-panel. Structured. Suspiciously clean. Field-tested at 3:17am somewhere near Crestwood.
+      </p>
+      <div class="drop-grid">
+        <div class="drop-photo">
+          <img src="assets/merch/cap-white.jpg" alt="White Realm Certified cap, front view" />
+        </div>
+        <div class="drop-info">
+          <div class="drop-classification">CLASSIFICATION · CIVILIAN CAMOUFLAGE</div>
+          <div class="drop-tag">CLEARANCE LEVEL 2 / RC-CAP-001</div>
+          <h3>Wear it. Get asked. Say nothing.</h3>
+          <p>
+            The white cap is the one you wear when you don't feel like explaining yourself. Realm Certified stitched in gold. Nothing else. That's the point.
+          </p>
+          <div class="drop-meta">
+            <div>
+              <small>PRICE</small>
+              <strong>$55 AUD</strong>
+            </div>
+            <div>
+              <small>UNITS REMAINING</small>
+              <strong>34 / 100</strong>
+            </div>
+            <div>
+              <small>DISPATCH</small>
+              <strong>NSW · 24H</strong>
+            </div>
+          </div>
+          <div class="drop-actions">
+            <span class="btn btn-ghost is-disabled" aria-disabled="true">DISPATCH PENDING · NOT YET LISTED</span>
+            <p class="drop-note">Physical kit is not on the counter yet. Membership clearance is live in the <a href="shop.html">Shop</a>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Field Issue Grid -->
+  <section class="section reveal" id="field">
+    <div class="section-inner">
+      <div class="section-kicker">FIELD ISSUE / STANDARD KIT</div>
+      <h2>Equipment for questionable expeditions.</h2>
+      <p class="section-lede">Every unit numbered. Nothing restocked. If you see it, take it.</p>
+
+      <div class="field-grid">
+        <article class="field-card">
+          <div class="field-photo">
+            <img src="assets/merch/cap-black.jpg" alt="Black Realm Certified cap" />
+            <span class="field-corner corner-tl">RC-CAP-002</span>
+            <span class="field-corner corner-br">01/100</span>
+            <span class="field-stamp" aria-hidden="true">REALM<br/>CERTIFIED<br/>· EST 5 ·</span>
+            <span class="field-stock" aria-hidden="true"><span>UNITS · <strong>28 / 100</strong></span><span>NSW · 24H</span></span>
+          </div>
+          <div class="field-body">
+            <div class="field-id">CIVILIAN CAMOUFLAGE</div>
+            <div class="field-title">Black Realm Cap</div>
+            <p class="field-desc">Same shape. Different mood. Reads like night, folds like paperwork.</p>
+            <div class="field-foot">
+              <span class="field-price">$55</span>
+              <span class="field-cta field-cta-off">INCOMING</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="field-card">
+          <div class="field-photo">
+            <img src="assets/merch/beanie.jpg" alt="Realm Certified beanie" />
+            <span class="field-corner corner-tl">RC-BNE-001</span>
+            <span class="field-corner corner-br">02/100</span>
+            <span class="field-stamp" aria-hidden="true">REALM<br/>CERTIFIED<br/>· EST 5 ·</span>
+            <span class="field-stock" aria-hidden="true"><span>UNITS · <strong class="low">7 / 100</strong></span><span>COLD KIT</span></span>
+          </div>
+          <div class="field-body">
+            <div class="field-id">COLD-WEATHER KIT</div>
+            <div class="field-title">Field Beanie</div>
+            <p class="field-desc">Ribbed knit. Folded cuff. Warmth issued grudgingly.</p>
+            <div class="field-foot">
+              <span class="field-price">$45</span>
+              <span class="field-cta field-cta-off">INCOMING</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="field-card">
+          <div class="field-photo">
+            <img src="assets/merch/bag-rc.jpg" alt="Realm Certified tote bag" />
+            <span class="field-corner corner-tl">RC-BAG-001</span>
+            <span class="field-corner corner-br">03/100</span>
+            <span class="field-stamp" aria-hidden="true">REALM<br/>CERTIFIED<br/>· EST 5 ·</span>
+            <span class="field-stock" aria-hidden="true"><span>UNITS · <strong>52 / 100</strong></span><span>FIELD CARRY</span></span>
+          </div>
+          <div class="field-body">
+            <div class="field-id">FIELD CARRIAGE</div>
+            <div class="field-title">Realm Tote</div>
+            <p class="field-desc">Cotton. Reinforced. Carries groceries, evidence, or nothing at all.</p>
+            <div class="field-foot">
+              <span class="field-price">$35</span>
+              <span class="field-cta field-cta-off">INCOMING</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="field-card">
+          <div class="field-photo">
+            <img src="assets/merch/cards.jpg" alt="Realm Certified access cards" />
+            <span class="field-corner corner-tl">RC-ID-014</span>
+            <span class="field-corner corner-br">04/100</span>
+            <span class="field-stamp" aria-hidden="true">REALM<br/>CERTIFIED<br/>· EST 5 ·</span>
+            <span class="field-stock" aria-hidden="true"><span>UNITS · <strong class="low">14 / 100</strong></span><span>NUMBERED</span></span>
+          </div>
+          <div class="field-body">
+            <div class="field-id">ACCESS CREDENTIAL</div>
+            <div class="field-title">Personnel Cards</div>
+            <p class="field-desc">Wallet-sized. Numbered. Not legally binding. Almost.</p>
+            <div class="field-foot">
+              <span class="field-price">$20</span>
+              <span class="field-cta field-cta-off">INCOMING</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lore / Vault -->
+  <section class="section lore reveal" id="lore">
+    <div class="section-inner">
+      <div class="section-kicker">FROM THE VAULT / DECLASSIFIED</div>
+      <h2>Terminology, mostly on purpose.</h2>
+
+      <div class="lore-grid">
+        <blockquote class="lore-quote">
+          Nobody planned the Realm. It happened between the servo and the second beer, and by the time anyone thought to stop it, we were already Certified.
+          <cite>internal transmission · file RC-004</cite>
+        </blockquote>
+
+        <div class="lore-terms">
+          <article class="lore-term">
+            <div class="lore-term-head">
+              <span class="lore-term-tag">DEF · 001</span>
+            </div>
+            <h4>Realm Certified</h4>
+            <p>Adjective. Officially unofficial. Sanctioned by no one relevant. The highest possible rating.</p>
+          </article>
+
+          <article class="lore-term">
+            <div class="lore-term-head">
+              <span class="lore-term-tag">DEF · 002</span>
+            </div>
+            <h4>EST Day 5</h4>
+            <p>Noun. The foundational day. Timeline uncertain. Witnesses unavailable. Ongoing regardless.</p>
+          </article>
+
+          <article class="lore-term">
+            <div class="lore-term-head">
+              <span class="lore-term-tag">DEF · 003</span>
+            </div>
+            <h4>The Boneyard</h4>
+            <p>Noun. Where unsold stock, bad ideas, and abandoned drafts go to reflect. Occasionally exhumed.</p>
+          </article>
+
+          <article class="lore-term">
+            <div class="lore-term-head">
+              <span class="lore-term-tag">DEF · 004</span>
+            </div>
+            <h4>Hot Mutt</h4>
+            <p>Noun. Unofficial mascot. Unofficial reason for most incident reports. Loyal, mostly.</p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Personnel -->
+  <section class="section reveal" id="personnel">
+    <div class="section-inner">
+      <div class="section-kicker">PERSONNEL FILES / ACTIVE ROSTER</div>
+      <h2>Operatives on the books.</h2>
+      <p class="section-lede">Names redacted where legally advisable. Photos taken without consent, apparently.</p>
+      <div class="roster-stamp">ROSTER LAST UPDATED · EST DAY 5</div>
+
+      <div class="personnel-grid">
+        <article class="op-card">
+          <div class="op-photo"><img src="assets/crew-max.jpg" alt="" /></div>
+          <div class="op-body">
+            <div class="op-id">OP · 001 / RC-P-MAX</div>
+            <div class="op-name">Max</div>
+            <div class="op-role">Chaos Liaison</div>
+            <p class="op-note">Runs on nuttar water and misplaced confidence. Currently hacked. Situation ongoing.</p>
+          </div>
+        </article>
+
+        <article class="op-card">
+          <div class="op-photo"><img src="assets/crew-zeb.jpg" alt="" /></div>
+          <div class="op-body">
+            <div class="op-id">OP · 002 / RC-P-ZEB</div>
+            <div class="op-name">Zeb</div>
+            <div class="op-role">Systems / Access Control</div>
+            <p class="op-note">Hacked Max. Denies it. Denial itself considered evidence.</p>
+          </div>
+        </article>
+
+        <article class="op-card">
+          <div class="op-photo"><img src="assets/crew-benny.jpg" alt="" /></div>
+          <div class="op-body">
+            <div class="op-id">OP · 003 / RC-P-BEN</div>
+            <div class="op-name">Benny</div>
+            <div class="op-role">Nocturnal Retrieval / Gift Recon</div>
+            <p class="op-note">Conducts treasure hunts during unusual hours in the hopes to find a gift that may impress you.</p>
+          </div>
+        </article>
+
+        <article class="op-card">
+          <div class="op-photo"><img src="assets/crew-cody.jpg" alt="" /></div>
+          <div class="op-body">
+            <div class="op-id">OP · 004 / RC-P-COD</div>
+            <div class="op-name">Cooked Cody <span class="op-alias">a.k.a. DR. PSYCHOSIS</span></div>
+            <div class="op-role">Logistics / Boneyard</div>
+            <p class="op-note">How much more cooked could a cooked Cody look if a cooked Cody could look more cooked?</p>
+          </div>
+        </article>
+
+        <article class="op-card">
+          <div class="op-photo"><img src="assets/crew-hayden.jpg" alt="" /></div>
+          <div class="op-body">
+            <div class="op-id">OP · 005 / RC-P-HAY</div>
+            <div class="op-name">Hayden</div>
+            <div class="op-role">Signal / Broadcast</div>
+            <p class="op-note">Speaks in short sentences. Every one of them ends up quoted.</p>
+          </div>
+        </article>
+
+        <article class="op-card">
+          <div class="op-photo"><img src="assets/crew-mark.jpg" alt="" /></div>
+          <div class="op-body">
+            <div class="op-id">OP · 006 / RC-P-MRK</div>
+            <div class="op-name">Mark</div>
+            <div class="op-role">Vehicles / Trade</div>
+            <p class="op-note">Underground diamond driller. Although, diamonds are not his favourite rocks.</p>
+          </div>
+        </article>
+
+        <article class="op-card">
+          <div class="op-photo"><img src="assets/crew-matt.jpg" alt="" /></div>
+          <div class="op-body">
+            <div class="op-id">OP · 007 / RC-P-MTT</div>
+            <div class="op-name">Matt</div>
+            <div class="op-role">Quiet Operations / Selective Compliance</div>
+            <p class="op-note">Hears what you say. Obeys only by choice. Struggles deeply with this one when law enforcement are involved.</p>
+          </div>
+        </article>
+
+        <article class="op-card">
+          <div class="op-photo"><img src="assets/crew-atauzi.jpg" alt="" /></div>
+          <div class="op-body">
+            <div class="op-id">OP · 008 / RC-P-ATZ</div>
+            <div class="op-name">Atauzi <span class="op-alias">a.k.a. THE FOUNDER</span></div>
+            <div class="op-role">Founder / Realm HQ Origin File</div>
+            <p class="op-note">The only Realm Certified Hot Mutt on Day 5. Everything after is downstream.</p>
+            <img class="op-cert-mark" src="assets/logo-crown.png" alt="Realm Certified" />
+          </div>
+        </article>
+
+        <article class="op-card">
+          <div class="op-photo"><img src="assets/crew-trent.jpg" alt="Trent · aka The Wizard" /></div>
+          <div class="op-body">
+            <div class="op-id">OP · 009 / RC-P-WZD</div>
+            <div class="op-name">Trent <span class="op-alias">a.k.a. THE WIZARD</span></div>
+            <div class="op-role">Cursed Millinery / Backroom Rituals</div>
+            <p class="op-note">Refuses to explain the hat. Refuses to remove the hat. Enter incantation range at own risk.</p>
+          </div>
+        </article>
+
+        <article class="op-card">
+          <div class="op-photo"><img src="assets/crew-crawfish.jpg" alt="Crawfish" /></div>
+          <div class="op-body">
+            <div class="op-id">OP · 010 / RC-P-CRW</div>
+            <div class="op-name">Mark Cut-It-More Crawfish <span class="op-alias">a.k.a. THE MAN WITH THE WONKY EYE</span></div>
+            <div class="op-role">Perimeter / Window Presence</div>
+            <p class="op-note">He… he never leaves… That man. That man with the crooked eye… HE NEVER LEAVES ME ALONE!</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Live Feed -->
+  <section class="section feed reveal" id="feed">
+    <div class="section-inner">
+      <div class="section-kicker">LIVE TRANSMISSION / CH 001</div>
+      <div class="feed-heading">
+        <h2>CAM STATUS · LIVE FROM THE BONEYARD</h2>
+        <p>Recorded on site. Nothing scripted. If you see yourself, sorry.</p>
+      </div>
+
+      <div class="feed-frame">
+        <div class="feed-chrome">
+          <div class="feed-chrome-l">
+            <span class="feed-rec"><span class="feed-rec-dot"></span> REC</span>
+            <span>CH 001 · LIVE</span>
+          </div>
+          <div class="feed-chrome-r">
+            <span id="feedClock">00:00:00</span>
+            <span>EST DAY 5</span>
+          </div>
+        </div>
+
+        <div class="feed-screen">
+          <!-- Playlist is deliberately empty until real footage is cleared for
+               release. The rotator in script.js no-ops on an empty array and
+               the poster holds the frame, so nothing 404s. Drop the clips into
+               assets/feed/ and re-populate data-playlist to bring it back. -->
+          <video class="feed-video" id="feedVideo" muted playsinline preload="none"
+                 poster="assets/feed/no-signal.jpg"
+                 data-playlist='[]'>
+          </video>
+          <div class="feed-scanlines" aria-hidden="true"></div>
+          <div class="feed-overlay" aria-hidden="true">
+            <div class="feed-tag feed-tag-tl" id="feedCamTag">ALL CAMS · NO RETURN PATH</div>
+            <div class="feed-tag feed-tag-tr">SIGNAL <span class="hud-bad">LOST</span></div>
+            <div class="feed-tag feed-tag-bl" id="feedOpTag">OPERATIVE UNKNOWN</div>
+            <div class="feed-tag feed-tag-br">REC · <span id="feedElapsed">00:00:00</span></div>
+          </div>
+          <div class="feed-controls" role="group" aria-label="Feed controls">
+            <button class="feed-btn" id="feedPlayBtn" type="button" aria-label="Play or pause feed" title="Play / pause">
+              <span class="feed-btn-icon" data-icon="pause" aria-hidden="true">■■</span>
+              <span class="feed-btn-lbl">PAUSE</span>
+            </button>
+            <button class="feed-btn" id="feedMuteBtn" type="button" aria-label="Mute or unmute feed" title="Mute / unmute">
+              <span class="feed-btn-icon" data-icon="mute" aria-hidden="true">MUTED</span>
+              <span class="feed-btn-lbl">UNMUTE</span>
+            </button>
+            <button class="feed-btn feed-btn-r" id="feedFsBtn" type="button" aria-label="Fullscreen feed" title="Fullscreen">
+              <span class="feed-btn-icon" aria-hidden="true">⛶</span>
+              <span class="feed-btn-lbl">FULLSCREEN</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="feed-ticker" aria-hidden="true">
+          <div class="feed-ticker-track" id="feedTickerTrack">
+            <span>INCOMING · MAX IS HACKED · AGAIN</span>
+            <span>+++</span>
+            <span>NUTTAR WATER: LOW</span>
+            <span>+++</span>
+            <span>HOT MUTT SIGHTED NEAR CRESTWOOD</span>
+            <span>+++</span>
+            <span>NEW DROP LOADING</span>
+            <span>+++</span>
+            <span>REALM CERTIFIED · EST DAY 5</span>
+            <span>+++</span>
+            <span>THE BONEYARD IS QUIET · SUSPICIOUS</span>
+            <span>+++</span>
+            <span>TRANSMISSION BUFFER 87%</span>
+            <span>+++</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="feed-fine">Clips loop until relieved of duty. Broadcasting on channel one for now, forever probably.</p>
+    </div>
+  </section>
+
+  <!-- Clearance Levels -->
+  <section class="section tiers reveal" id="tiers">
+    <div class="section-inner">
+      <div class="section-kicker">CLASSIFIED / ACCESS LADDER · REV 05</div>
+      <h2>Clearance Levels.</h2>
+      <p class="section-lede">Every operative gets sorted. Some drift through the front gate. Others get filed under BONEYARD before their photo dries. Know your level before you try to buy the merch.</p>
+
+      <div class="tiers-grid">
+        <article class="tier-card tier-01">
+          <div class="tier-num">LEVEL 01 <span class="tier-badge">PRE·REALM</span></div>
+          <h3 class="tier-name">Visitor</h3>
+          <p class="tier-desc">Wandered in off the street. Not registered. Not denied. Currently being observed via CAM 04. No merch access, no transmissions, no questions answered.</p>
+          <div class="tier-how">Access via <b>front gate</b> · no clearance required</div>
+        </article>
+
+        <article class="tier-card tier-02">
+          <div class="tier-num">LEVEL 02 <span class="tier-badge">UNDER REVIEW</span></div>
+          <h3 class="tier-name">Applicant</h3>
+          <p class="tier-desc">Filed for clearance. Sitting in the waiting room next to the fridge. Realm HQ is deciding whether you are Realm-adjacent or just lost. Reassessment permitted.</p>
+          <div class="tier-how">Sit the <b>Realm Certification Test</b></div>
+        </article>
+
+        <article class="tier-card tier-03">
+          <div class="tier-num">LEVEL 03 <span class="tier-badge">PROVISIONAL</span></div>
+          <h3 class="tier-name">Provisional Clearance</h3>
+          <p class="tier-desc">Realm-adjacent tendencies confirmed. Cleared for transmissions and outer Boneyard perimeter. Full field readiness not yet demonstrated. Do not attempt Bungonia solo.</p>
+          <div class="tier-how">Pass <b>3 of 6</b> on the Realm test</div>
+        </article>
+
+        <article class="tier-card tier-04">
+          <div class="tier-num">LEVEL 04 <span class="tier-badge">FULL CLEARANCE</span></div>
+          <h3 class="tier-name">Realm Certified</h3>
+          <p class="tier-desc">Cleared for full Realm activity. Boneyard access granted. May carry the crest in public without further authorisation. First-line access to drops, transmissions, and the occasional Hot Mutt sighting.</p>
+          <div class="tier-how">Pass <b>5 of 6</b> · cert on file</div>
+        </article>
+
+        <article class="tier-card tier-05">
+          <div class="tier-num">LEVEL 05 <span class="tier-badge">EST DAY 5</span></div>
+          <h3 class="tier-name">Realm Certified · EST Day 5</h3>
+          <p class="tier-desc">Top classification. Registered under EST Day 5 protocol. Direct line to HQ. Priority merch, unreleased transmissions, and Crestwood weather updates whether you want them or not.</p>
+          <div class="tier-how">Pass <b>6 of 6</b> · EST Day 5 seal</div>
+        </article>
+
+        <article class="tier-card tier-boneyard">
+          <div class="tier-num">BONEYARD <span class="tier-badge">DENIED</span></div>
+          <h3 class="tier-name">Access Denied</h3>
+          <p class="tier-desc">Assessment failed. Filed under CLASSIFICATION: RAW. Recommend loitering near Realm HQ transmissions until frequencies align. Reapply EST Day 6. Do not attempt to purchase merch under false pretences.</p>
+          <div class="tier-how">Fail the test · <b>reapply after EST Day 6</b></div>
+        </article>
+      </div>
+
+      <p class="tier-cta">Not certified yet? <a href="quiz.html">Sit the Realm Certification Test →</a></p>
+    </div>
+  </section>
+
+  <!-- Lore teaser (v5) -->
+  <section class="section reveal" id="field-files" aria-label="Field files">
+    <div class="section-inner">
+      <div class="section-kicker">FIELD FILES / RECOVERED</div>
+      <h2>Files leak faster than we can seal them.</h2>
+
+      <article class="lore-teaser">
+        <span class="lore-teaser-tag">FILE 007 · CLASSIFICATION: COOKED</span>
+        <h3>The Great Flats of <em>Bungonia</em>.</h3>
+        <p>Sixteen kilometres past the last legible sign. The road stops pretending to be a road. What locals call the Flats, HQ files under Zone 04. Nothing grows. Nothing leaves. The wind has an accent.</p>
+        <p>Operative logs place three transmissions here in the last twelve months. Two are unaccounted for. The third came back changed, refused to speak on record, and now runs the desk on Thursdays.</p>
+        <p>The full file is redacted in the usual places and legible in exactly one.</p>
+        <p class="classified-note">FILE STATUS · PARTIAL RECOVERY · CLEARANCE 03</p>
+        <a class="lore-teaser-cta" href="lore/bungonia.html">READ FULL FILE <span>→</span></a>
+      </article>
+    </div>
+  </section>
+
+  <!-- Enlist -->
+  <section class="section enlist reveal" id="enlist">
+    <div class="enlist-inner">
+      <div class="section-kicker" style="justify-content:center;">TRANSMISSION SIGNUP</div>
+      <h2>Apply for access.</h2>
+      <p>
+        Realm HQ sends one transmission when a drop lands. No newsletters. No hustle. Just the door creaking open.
+      </p>
+      <form class="enlist-form" id="enlistForm" novalidate>
+        <label class="sr-only" for="enlistEmail">Operative email address</label>
+        <input class="enlist-input" id="enlistEmail" type="email" name="operative" required maxlength="200" autocomplete="email" placeholder="OPERATIVE EMAIL" />
+        <div class="hp-field" aria-hidden="true">
+          <label for="enlistCompany">Company (leave blank)</label>
+          <input type="text" id="enlistCompany" name="company" tabindex="-1" autocomplete="off" />
+        </div>
+        <button class="btn btn-primary" type="submit" id="enlistSubmit">APPLY FOR ACCESS <span>&rarr;</span></button>
+      </form>
+      <p class="enlist-fine" id="enlistFine" role="status" aria-live="polite">One transmission at a time. Unsubscribe when you find your way out.</p>
+    </div>
+  </section>
+
+  <!-- Trust strip -->
+  <section class="trust">
+    <div class="trust-list">
+      <div class="trust-item">DISPATCHED FROM NSW</div>
+      <div class="trust-item">REALM CERTIFIED</div>
+      <div class="trust-item">SECURE CHECKOUT</div>
+      <div class="trust-item">EST DAY 5</div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="assets/logo-crown.png" alt="Realm HQ crest" />
+          <p>Shadow Realm HQ. Officially unofficial. Dispatched from NSW at hours that don't exist. Realm Certified since EST Day 5.</p>
+        </div>
+        <div class="footer-col">
+          <h5>REALM</h5>
+          <a href="shop.html">Shop</a>
+          <a href="vault.html">Vault</a>
+          <a href="terminal.html">Terminal</a>
+          <a href="access.html">Access Card</a>
+          <a href="#personnel">Personnel</a>
+          <a href="certification.html">Certification</a>
+        </div>
+        <div class="footer-col">
+          <h5>SIGNAL</h5>
+          <a href="music.html">Music</a>
+          <a href="#feed">Live Feed</a>
+          <a href="#tiers">Clearance</a>
+          <a href="contact.html">Contact the Realm</a>
+          <a href="https://www.instagram.com/realmcertified" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.tiktok.com/@realmcertified?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener">TikTok</a>
+          <a href="https://youtube.com/@realmcertified?si=S3xlFrRtA6tF_HmO" target="_blank" rel="noopener">YouTube</a>
+        </div>
+        <div class="footer-col">
+          <h5>FINE PRINT</h5>
+          <a href="policy/shipping.html">Shipping</a>
+          <a href="policy/returns.html">Returns</a>
+          <a href="policy/terms.html">Terms</a>
+          <a href="policy/privacy.html">Privacy</a>
+        </div>
+      </div>
+      <div class="footer-bot">
+        <span>© SHADOW REALM · REALM CERTIFIED · EST DAY 5</span>
+        <span>hq@shadowrealmhq.com</span>
+      </div>
+    </div>
+  </footer>
+
+</main>
+
+<!-- HOT MUTT rubber stamp -->
+<div class="hot-mutt-stamp" aria-hidden="true" title="HOT MUTT">
+  <div class="hot-mutt-ring">
+    <span class="hot-mutt-text">HOT MUTT · ON PATROL · REALM HQ · EST DAY 5 ·</span>
+  </div>
+  <div class="hot-mutt-core">
+    <span class="hot-mutt-line">CLASSIFICATION</span>
+    <span class="hot-mutt-big">HOT<br>MUTT</span>
+    <span class="hot-mutt-line">APPROVED</span>
+  </div>
+</div>
+
+<script src="assets/js/realm.js"></script>
+<script src="assets/js/portal2.js"></script>
+<script src="script.js"></script>
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/page-index.js"></script>
+<script src="assets/js/fx.js" defer></script>
+<script src="assets/js/fx2.js" defer></script>
+<script src="assets/js/fx3.js" defer></script>
+<script src="assets/js/fx4.js" defer></script>
+<script src="assets/js/fx5.js" defer></script>
+</body>
+</html>

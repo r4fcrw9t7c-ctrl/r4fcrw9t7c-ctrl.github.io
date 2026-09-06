@@ -1,0 +1,14 @@
+{
+  "name": "Shadow Realm HQ",
+  "short_name": "Realm HQ",
+  "description": "Realm Certified. Officially unofficial.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0B0B0F",
+  "theme_color": "#0B0B0F",
+  "icons": [
+    { "src": "/assets/favicon-64.png", "sizes": "64x64", "type": "image/png" },
+    { "src": "/assets/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "/assets/maskable-icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

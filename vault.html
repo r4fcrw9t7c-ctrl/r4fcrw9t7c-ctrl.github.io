@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en-AU" class="js">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Vault · Realm HQ</title>
+  <meta name="description" content="The Vault. Recovered files, incident reports, and Realm lore. Full files unseal for Vault-cleared operatives." />
+  <meta name="theme-color" content="#0a0806" />
+  <link rel="icon" href="assets/favicon-64.png" type="image/png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link rel="canonical" href="https://shadowrealmhq.com/vault" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&display=swap" rel="stylesheet" />
+  <style>
+    :root{ --void:#0B0B0F; --bone:#F5F1E8; --bone-dim:#a8a8a8; --bone-faint:#6b6b6b; --gold:#D4AF37; --hazard:#22D3EE; --danger:#FF2B9C; }
+    *{ box-sizing:border-box; }
+    html, body{ margin:0; padding:0; background:var(--void); color:var(--bone); font-family:'Space Grotesk', system-ui, sans-serif; }
+    body{ position:relative; min-height:100vh; }
+    body::before{ content:""; position:fixed; inset:0; background:repeating-linear-gradient(0deg, transparent 0, transparent 3px, rgba(255,255,255,.012) 3px, rgba(255,255,255,.012) 4px); pointer-events:none; z-index:1; }
+    .wrap{ position:relative; z-index:2; max-width:760px; margin:0 auto; padding:64px 24px 96px; }
+    .back{ display:inline-flex; gap:8px; color:var(--bone-dim); font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:.2em; text-transform:uppercase; text-decoration:none; margin-bottom:36px; }
+    .back:hover{ color:var(--gold); }
+    .file-no{ font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:.24em; color:var(--gold); margin-bottom:12px; }
+    h1{ font-family:'Cormorant Garamond', serif; font-weight:500; font-size:clamp(38px,6vw,60px); line-height:1.05; margin:0 0 16px; }
+    h1 .glow{ color:var(--gold); font-style:italic; }
+    .sub{ font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--bone-faint); margin-bottom:32px; padding-bottom:20px; border-bottom:1px dashed rgba(212,175,55,.25); }
+    .status-bar{ display:flex; align-items:center; gap:10px; font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.2em; text-transform:uppercase; margin-bottom:32px; color:var(--bone-faint); }
+    .status-bar .dot{ width:8px; height:8px; border-radius:50%; background:var(--danger); }
+    .status-bar.unsealed .dot{ background:var(--hazard); }
+    .lead{ font-size:15.5px; line-height:1.8; color:var(--bone); margin:0 0 32px; }
+    .entry{ border:1px solid rgba(212,175,55,.2); background:rgba(255,255,255,.012); margin-bottom:16px; }
+    .entry-head{ display:grid; grid-template-columns:auto 1fr auto; gap:14px; align-items:baseline; padding:18px 20px; cursor:pointer; }
+    .entry-head .ref{ font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.2em; color:var(--gold); }
+    .entry-head .title{ font-family:'Cormorant Garamond',serif; font-size:21px; color:var(--bone); }
+    .entry-head .lock{ font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:.22em; text-transform:uppercase; color:var(--hazard); }
+    .entry-head .lock.open{ color:var(--gold); }
+    .entry-body{ padding:0 20px 20px; }
+    .entry-teaser{ font-size:14px; line-height:1.75; color:var(--bone-dim); margin:0 0 12px; }
+    .entry-full{ font-size:14.5px; line-height:1.85; color:var(--bone); white-space:pre-line; border-top:1px dashed rgba(212,175,55,.2); padding-top:14px; }
+    .entry-locked{ font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.06em; line-height:1.7; color:var(--bone-faint); border-top:1px dashed rgba(212,175,55,.2); padding-top:14px; }
+    .entry-locked b{ color:var(--gold); }
+    .btn{ display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:13px 22px; border:1px solid var(--gold); background:var(--gold); color:var(--void); font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.2em; text-transform:uppercase; text-decoration:none; cursor:pointer; transition:background .18s,color .18s; }
+    .btn:hover{ background:transparent; color:var(--gold); }
+    .btn.ghost{ background:transparent; color:var(--gold); }
+    .btn.ghost:hover{ background:var(--gold); color:var(--void); }
+    .gate{ border:1px solid rgba(212,175,55,.35); background:linear-gradient(180deg, rgba(212,175,55,.06), rgba(255,255,255,.012)); padding:26px 24px; margin:8px 0 32px; }
+    .gate h2{ font-family:'Cormorant Garamond',serif; font-weight:600; font-size:24px; margin:0 0 10px; }
+    .gate p{ font-size:13.5px; line-height:1.7; color:var(--bone-dim); margin:0 0 8px; }
+    .gate .actions{ display:flex; gap:12px; flex-wrap:wrap; margin-top:16px; }
+    .foot{ margin-top:56px; padding-top:24px; border-top:1px solid rgba(212,175,55,.2); font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--bone-faint); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+    .foot .seal{ color:var(--gold); }
+    .hidden{ display:none !important; }
+    @media(max-width:520px){ .entry-head{ grid-template-columns:1fr; gap:4px; } }
+  </style>
+  <link rel="stylesheet" href="assets/css/nav.css" />
+  <link rel="stylesheet" href="assets/css/fx.css" />
+  <link rel="stylesheet" href="assets/css/fx2.css" />
+  <link rel="stylesheet" href="assets/css/fx3.css" />
+  <link rel="stylesheet" href="assets/css/fx4.css">
+  <link rel="stylesheet" href="assets/css/fx5.css">
+  <script defer data-domain="shadowrealmhq.com" src="https://plausible.io/js/script.outbound-links.js"></script>
+  <!-- social: realm hq -->
+  <meta property="og:site_name" content="Realm HQ" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="en_AU" />
+  <meta property="og:title" content="The Vault · Realm HQ" />
+  <meta property="og:description" content="The Vault. Recovered files, incident reports, and Realm lore. Full files unseal for Vault-cleared operatives." />
+  <meta property="og:url" content="https://shadowrealmhq.com/vault" />
+  <meta property="og:image" content="https://shadowrealmhq.com/assets/og-vault.jpg" />
+  <meta property="og:image:secure_url" content="https://shadowrealmhq.com/assets/og-vault.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="FILE VLT-000 — The Vault. Recovered files, sealed. Realm HQ." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="The Vault · Realm HQ" />
+  <meta name="twitter:description" content="The Vault. Recovered files, incident reports, and Realm lore. Full files unseal for Vault-cleared operatives." />
+  <meta name="twitter:image" content="https://shadowrealmhq.com/assets/og-vault.jpg" />
+  <meta name="twitter:image:alt" content="FILE VLT-000 — The Vault. Recovered files, sealed. Realm HQ." />
+</head>
+<body>
+  <!-- Header (shared markup, assets/css/nav.css + assets/js/nav.js) -->
+  <header class="hdr-lite" id="hdrLite">
+    <a class="hdr-lite-brand" href="index.html" aria-label="Realm HQ home">
+      <img src="assets/logo-crown.png" alt="" width="34" height="34" />
+      <span>SHADOW REALM<small>REALM HQ · THE VAULT</small></span>
+    </a>
+    <nav class="hdr-lite-nav" aria-label="Primary">
+        <a href="shop.html">Shop</a>
+        <a href="music.html">Music</a>
+        <a href="quiz.html">Quiz</a>
+        <a href="vault.html" class="is-active">Vault</a>
+        <a href="terminal.html">Terminal</a>
+        <a href="index.html#personnel">Personnel</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+    <div class="hdr-lite-status" aria-live="off">
+      <span class="dot" aria-hidden="true"></span><span class="label-full">SIGNAL:&nbsp;</span><span class="status-word" data-fx-status>RECEIVING</span>
+    </div>
+    <button class="hdr-burger" id="hdrBurger" type="button" aria-expanded="false"
+            aria-controls="hdrDrawer" aria-label="Open navigation">
+      <span></span><span></span><span></span>
+    </button>
+    <span class="hdr-lite-depth" id="hdrDepth" aria-hidden="true"></span>
+  </header>
+
+<div class="hdr-drawer" id="hdrDrawer" role="dialog" aria-modal="true" aria-label="Realm HQ navigation" aria-hidden="true">
+    <div class="hdr-drawer-head">
+      <span class="hdr-drawer-tag">REALM HQ · ACCESS PANEL</span>
+      <button class="hdr-drawer-close" type="button" aria-label="Close navigation">✕</button>
+    </div>
+    <nav class="hdr-drawer-nav" aria-label="Mobile primary">
+      <a href="shop.html">Shop</a>
+      <a href="music.html">Music</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="vault.html" class="is-active">Vault</a>
+      <a href="index.html#personnel">Personnel</a>
+      <a href="index.html#feed">Live Feed</a>
+      <a href="index.html#tiers">Clearance</a>
+      <a href="terminal.html">Terminal</a>
+      <a href="contact.html">Contact</a>
+      <a href="index.html#enlist">Enlist</a>
+    </nav>
+    <div class="hdr-drawer-foot">
+      <span>EST DAY 5</span>
+      <span>CLASSIFICATION: COOKED</span>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="file-no">FILE VLT-000 · RESTRICTED ARCHIVE</div>
+    <h1>The <span class="glow">Vault</span>.</h1>
+    <div class="sub">RECOVERED FILES · REALM HQ · EST DAY 5</div>
+
+    <div class="status-bar" id="statusBar"><span class="dot"></span> <span id="statusText">VAULT SEALED · TEASERS ONLY</span></div>
+
+    <p class="lead">The Vault is where the Realm keeps everything it should have thrown out. Incident reports, draft transmissions, photographs taken by no one. Teasers are public. Full files unseal for Vault-cleared operatives.</p>
+
+    <!-- Access gate (shown when not entitled) -->
+    <section class="gate" id="gate">
+      <h2>Vault sealed.</h2>
+      <p>Full files require Vault access. Reach Elite clearance, or log two enlistments with your referral code to unseal it for free.</p>
+      <div class="actions">
+        <a class="btn" href="terminal">Open the Terminal</a>
+        <a class="btn ghost" href="shop.html">Upgrade clearance</a>
+      </div>
+    </section>
+
+    <div id="entries" aria-live="polite"></div>
+
+    <div class="foot">
+      <span>FILE VLT-000 · ARCHIVE</span>
+      <span class="seal">REALM HQ · ARCHIVE STAMP</span>
+    </div>
+  </div>
+
+<script src="assets/js/realm.js"></script>
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/page-vault.js"></script>
+<script src="assets/js/fx.js" defer></script>
+<script src="assets/js/fx2.js" defer></script>
+<script src="assets/js/fx3.js" defer></script>
+<script src="assets/js/fx4.js" defer></script>
+<script src="assets/js/fx5.js" defer></script>
+</body>
+</html>

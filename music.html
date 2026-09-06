@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en-AU" class="js">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Music · Realm HQ Signal Room</title>
+  <meta name="description" content="Realm HQ transmissions and off-books recordings. Officially unofficial. Signal picked up from Crestwood at 3:17am." />
+  <meta name="theme-color" content="#0a0806" />
+  <link rel="icon" href="assets/favicon-64.png" type="image/png" />
+  <!-- v6-icons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+<link rel="canonical" href="https://shadowrealmhq.com/music" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="style.css" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"MusicGroup","@id":"https://shadowrealmhq.com/#band","name":"Realm HQ","url":"https://shadowrealmhq.com/music","genre":["Hip hop","Electronic"],"sameAs":["https://www.instagram.com/realmcertified","https://www.tiktok.com/@realmcertified","https://youtube.com/@realmcertified"],"track":[
+  {"@type":"MusicRecording","name":"Static Between Us","duration":"PT2M39S","byArtist":{"@id":"https://shadowrealmhq.com/#band"}},
+  {"@type":"MusicRecording","name":"Railway Realm","duration":"PT3M24S","byArtist":{"@id":"https://shadowrealmhq.com/#band"}},
+  {"@type":"MusicRecording","name":"Realm Weather","duration":"PT3M8S","byArtist":{"@id":"https://shadowrealmhq.com/#band"}},
+  {"@type":"MusicRecording","name":"Realm Activity","duration":"PT3M12S","byArtist":{"@id":"https://shadowrealmhq.com/#band"}},
+  {"@type":"MusicRecording","name":"Boneyard Blues","duration":"PT2M48S","byArtist":{"@id":"https://shadowrealmhq.com/#band"}},
+  {"@type":"MusicRecording","name":"One More Stop","duration":"PT3M33S","byArtist":{"@id":"https://shadowrealmhq.com/#band"}},
+  {"@type":"MusicRecording","name":"Slowly Vanishing","duration":"PT3M49S","byArtist":{"@id":"https://shadowrealmhq.com/#band"}},
+  {"@type":"MusicRecording","name":"Only There","duration":"PT3M56S","byArtist":{"@id":"https://shadowrealmhq.com/#band"}},
+  {"@type":"MusicRecording","name":"Same Frequency","duration":"PT3M38S","byArtist":{"@id":"https://shadowrealmhq.com/#band"}}
+  ]}
+  </script>
+  <link rel="stylesheet" href="assets/css/nav.css" />
+  <link rel="stylesheet" href="assets/css/fx.css" />
+  <link rel="stylesheet" href="assets/css/fx2.css" />
+  <link rel="stylesheet" href="assets/css/fx3.css" />
+  <link rel="stylesheet" href="assets/css/fx4.css">
+  <link rel="stylesheet" href="assets/css/fx5.css">
+  <script defer data-domain="shadowrealmhq.com" src="https://plausible.io/js/script.outbound-links.js"></script>
+  <!-- social: realm hq -->
+  <meta property="og:site_name" content="Realm HQ" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="en_AU" />
+  <meta property="og:title" content="Music · Realm HQ Signal Room" />
+  <meta property="og:description" content="Realm HQ transmissions and off-books recordings. Officially unofficial. Signal picked up from Crestwood at 3:17am." />
+  <meta property="og:url" content="https://shadowrealmhq.com/music" />
+  <meta property="og:image" content="https://shadowrealmhq.com/assets/og-card.jpg" />
+  <meta property="og:image:secure_url" content="https://shadowrealmhq.com/assets/og-card.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="SHADOW REALM — Realm Certified. Officially unofficial." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Music · Realm HQ Signal Room" />
+  <meta name="twitter:description" content="Realm HQ transmissions and off-books recordings. Officially unofficial. Signal picked up from Crestwood at 3:17am." />
+  <meta name="twitter:image" content="https://shadowrealmhq.com/assets/og-card.jpg" />
+  <meta name="twitter:image:alt" content="SHADOW REALM — Realm Certified. Officially unofficial." />
+</head>
+<body class="page-loaded page-subpage">
+<main class="site">
+
+  <!-- Subpage header -->
+  <header class="subpage-header">
+    <a href="index.html" class="hdr-brand" aria-label="Realm HQ home">
+      <img src="assets/logo-crown.png" alt="" />
+      <span class="hdr-brand-txt">
+        SHADOW REALM
+        <small>REALM HQ · SIGNAL ROOM</small>
+      </span>
+    </a>
+    <nav class="hdr-nav" aria-label="Primary">
+      <a href="index.html#drop">Drops</a>
+      <a href="index.html#field">Field Issue</a>
+      <a href="music.html" class="is-active">Music</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="index.html#lore">Vault</a>
+      <a href="index.html#personnel">Personnel</a>
+      <a href="index.html#feed">Live Feed</a>
+    </nav>
+    <div class="hdr-status" aria-live="polite">
+      <span class="dot"></span> <span class="label-full">SIGNAL:&nbsp;</span><span class="status-word" id="statusWord">RECEIVING</span>
+    </div>
+    <button class="hdr-burger" id="hdrBurger" type="button" aria-expanded="false" aria-controls="hdrDrawer" aria-label="Open navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- Mobile drawer -->
+  <div class="hdr-drawer" id="hdrDrawer" role="dialog" aria-modal="true" aria-label="Realm HQ navigation" aria-hidden="true">
+    <div class="hdr-drawer-head">
+      <span class="hdr-drawer-tag">REALM HQ · ACCESS PANEL</span>
+      <button class="hdr-drawer-close" type="button" aria-label="Close navigation">✕</button>
+    </div>
+    <nav class="hdr-drawer-nav" aria-label="Mobile primary">
+      <a href="index.html#drop">Drops</a>
+      <a href="index.html#field">Field Issue</a>
+      <a href="music.html" class="is-active">Music</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="index.html#lore">Vault</a>
+      <a href="index.html#personnel">Personnel</a>
+      <a href="index.html#feed">Live Feed</a>
+      <a href="index.html#tiers">Clearance</a>
+      <a href="contact.html">Contact</a>
+      <a href="index.html#enlist">Enlist</a>
+    </nav>
+    <div class="hdr-drawer-foot">
+      <span>EST DAY 5</span>
+      <span>CLASSIFICATION: COOKED</span>
+    </div>
+  </div>
+
+  <!-- Music hero -->
+  <section class="music-hero">
+    <div class="music-hero-inner">
+      <div class="hero-file-tag">
+        FILE 011 · TRANSMISSION LOG <span class="redact">SIGNAL ROOM</span>
+      </div>
+      <h1>
+        The <span class="glow">signal</span>
+        <span class="h1-waveform" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        </span><br />
+        does the talking.
+      </h1>
+      <p>
+        Two frequencies. One for the Realm, one for the record.
+        Realm HQ runs on nuttar water, late nights, and songs that shouldn't exist. Pick a channel.
+      </p>
+    </div>
+  </section>
+
+  <!-- Section 1: Shadow Realm / Brand transmissions -->
+  <!-- FEATURED REALM SONG -->
+  <section class="featured-song" aria-label="Featured Realm Song">
+    <div class="featured-song-inner">
+      <div class="featured-song-media">
+        <video
+          id="featuredVideo"
+          class="featured-video"
+          data-src="assets/music/static-between-us.mp4"
+          poster="assets/music/static-poster.jpg"
+          width="854" height="480"
+          preload="none"
+          playsinline
+          controls
+        ></video>
+        <div class="featured-song-scan" aria-hidden="true"></div>
+      </div>
+      <div class="featured-song-copy">
+        <div class="featured-song-tag">
+          <span class="dot"></span> REALM CERTIFIED · FEATURED TRANSMISSION
+        </div>
+        <h2 class="featured-song-title">Static Between Us</h2>
+        <div class="featured-song-meta">
+          <span>REALM SIGNAL</span>
+          <span class="sep">/</span>
+          <span>3:17AM CUT</span>
+          <span class="sep">/</span>
+          <span>FILE #RC-001</span>
+        </div>
+        <p class="featured-song-lede">
+          The first Realm-certified single. Video plus audio, transmitted straight from the Boneyard.
+          Recommended listen: 3:17am, headphones on, phone face-down.
+        </p>
+        <div class="featured-song-actions">
+          <button type="button" class="featured-play" data-featured-play aria-label="Play Static Between Us">
+            <span class="featured-play-icon">▶</span>
+            <span class="featured-play-label">Play transmission</span>
+          </button>
+          <a class="featured-secondary" href="https://youtube.com/@realmcertified?si=S3xlFrRtA6tF_HmO" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tracks" id="brand" aria-labelledby="brand-title">
+    <div class="tracks-inner">
+      <div class="section-head">
+        <div class="section-kicker">CHANNEL 01 · REALM SIGNAL</div>
+        <h2 class="section-title" id="brand-title">Shadow Realm transmissions</h2>
+        <p class="section-lede">
+          Field recordings from the Boneyard. Realm-flavoured, cooked, and mildly haunted.
+          Play at 3:17am for full effect.
+        </p>
+      </div>
+
+      <ol class="track-list">
+        <li class="track track-live" data-track="static-between-us" data-audio-src="assets/music/static-between-us.mp3">
+          <div class="track-num">01</div>
+          <button class="track-play" type="button" aria-label="Play Static Between Us">▶</button>
+          <div class="track-info">
+            <div class="track-title">Static Between Us <span class="track-badge">REALM SONG</span></div>
+            <div class="track-sub">REALM SIGNAL · 3:17AM CUT</div>
+          </div>
+          <span class="track-tag">REALM CERTIFIED</span>
+          <div class="track-len">02:39</div>
+          <div class="track-embed">
+            <div class="track-embed-live">
+              <audio class="track-audio" preload="none" src="assets/music/static-between-us.mp3"></audio>
+              <div class="track-progress">
+                <div class="track-progress-bar"><div class="track-progress-fill"></div></div>
+                <div class="track-time"><span class="t-cur">0:00</span> / <span class="t-dur">2:39</span></div>
+              </div>
+              <div class="track-links">
+                <span class="track-link track-link--soon" data-platform="spotify" data-cs="1" aria-disabled="true" aria-label="Spotify not yet live">Spotify</span>
+                <span class="track-link track-link--soon" data-platform="apple" data-cs="1" aria-disabled="true" aria-label="Apple Music not yet live">Apple Music</span>
+                <a href="https://youtube.com/@realmcertified?si=S3xlFrRtA6tF_HmO" class="track-link" data-platform="youtube" target="_blank" rel="noopener">YouTube</a>
+                <a href="https://www.tiktok.com/@realmcertified?is_from_webapp=1&sender_device=pc" class="track-link" data-platform="tiktok" target="_blank" rel="noopener">TikTok</a>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="track" data-track="railway-realm">
+          <div class="track-num">02</div>
+          <button class="track-play" type="button" aria-label="Play Railway Realm">▶</button>
+          <div class="track-info">
+            <div class="track-title">Railway Realm</div>
+            <div class="track-sub">SHADOW REALM · BONEYARD MIX</div>
+          </div>
+          <span class="track-tag">SHADOW REALM</span>
+          <div class="track-len">03:24</div>
+          <div class="track-embed">
+            <div class="track-streaming-pending">STREAMING · PENDING CLEARANCE</div>
+          </div>
+        </li>
+
+        <li class="track" data-track="realm-weather">
+          <div class="track-num">03</div>
+          <button class="track-play" type="button" aria-label="Play Realm Weather">▶</button>
+          <div class="track-info">
+            <div class="track-title">Realm Weather</div>
+            <div class="track-sub">EST DAY 5 · BROADCAST</div>
+          </div>
+          <span class="track-tag">EST DAY 5</span>
+          <div class="track-len">03:08</div>
+          <div class="track-embed">
+            <div class="track-streaming-pending">STREAMING · PENDING CLEARANCE</div>
+          </div>
+        </li>
+
+        <li class="track" data-track="realm-activity">
+          <div class="track-num">04</div>
+          <button class="track-play" type="button" aria-label="Play Realm Activity">▶</button>
+          <div class="track-info">
+            <div class="track-title">Realm Activity</div>
+            <div class="track-sub">CLASSIFIED: COOKED</div>
+          </div>
+          <span class="track-tag">REALM CERTIFIED</span>
+          <div class="track-len">03:12</div>
+          <div class="track-embed">
+            <div class="track-streaming-pending">STREAMING · PENDING CLEARANCE</div>
+          </div>
+        </li>
+
+        <li class="track" data-track="boneyard-blues">
+          <div class="track-num">05</div>
+          <button class="track-play" type="button" aria-label="Play Boneyard Blues">▶</button>
+          <div class="track-info">
+            <div class="track-title">Boneyard Blues</div>
+            <div class="track-sub">HOOK · REMIX PENDING</div>
+          </div>
+          <span class="track-tag">BONEYARD</span>
+          <div class="track-len">02:48</div>
+          <div class="track-embed">
+            <div class="track-streaming-pending">STREAMING · PENDING CLEARANCE</div>
+          </div>
+        </li>
+
+        <li class="track" data-track="one-more-stop">
+          <div class="track-num">06</div>
+          <button class="track-play" type="button" aria-label="Play One More Stop">▶</button>
+          <div class="track-info">
+            <div class="track-title">One More Stop</div>
+            <div class="track-sub">REALM SIGNAL · LATE TRAIN</div>
+          </div>
+          <span class="track-tag">REALM CERTIFIED</span>
+          <div class="track-len">03:33</div>
+          <div class="track-embed">
+            <div class="track-streaming-pending">STREAMING · PENDING CLEARANCE</div>
+          </div>
+        </li>
+
+        <li class="track" data-track="slowly-vanishing">
+          <div class="track-num">07</div>
+          <button class="track-play" type="button" aria-label="Play Slowly Vanishing">▶</button>
+          <div class="track-info">
+            <div class="track-title">Slowly Vanishing</div>
+            <div class="track-sub">SHADOW REALM · GHOST FREQUENCY</div>
+          </div>
+          <span class="track-tag">REALM CERTIFIED</span>
+          <div class="track-len">03:49</div>
+          <div class="track-embed">
+            <div class="track-streaming-pending">STREAMING · PENDING CLEARANCE</div>
+          </div>
+        </li>
+
+        <li class="track" data-track="only-there">
+          <div class="track-num">08</div>
+          <button class="track-play" type="button" aria-label="Play Only There">▶</button>
+          <div class="track-info">
+            <div class="track-title">Only There</div>
+            <div class="track-sub">SHADOW REALM · AFTER HOURS</div>
+          </div>
+          <span class="track-tag">REALM CERTIFIED</span>
+          <div class="track-len">03:56</div>
+          <div class="track-embed">
+            <div class="track-streaming-pending">STREAMING · PENDING CLEARANCE</div>
+          </div>
+        </li>
+
+        <li class="track" data-track="same-frequency">
+          <div class="track-num">09</div>
+          <button class="track-play" type="button" aria-label="Play Same Frequency">▶</button>
+          <div class="track-info">
+            <div class="track-title">Same Frequency</div>
+            <div class="track-sub">SHADOW REALM · TUNED IN</div>
+          </div>
+          <span class="track-tag">REALM CERTIFIED</span>
+          <div class="track-len">03:38</div>
+          <div class="track-embed">
+            <div class="track-streaming-pending">STREAMING · PENDING CLEARANCE</div>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Section 2: Official record -->
+  <section class="tracks tracks-alt" id="serious" aria-labelledby="serious-title">
+    <div class="tracks-inner">
+      <div class="section-head">
+        <div class="section-kicker">CHANNEL 02 · OFFICIAL RECORD</div>
+        <h2 class="section-title" id="serious-title">The serious work</h2>
+        <p class="section-lede">
+          Lyrics off the estate. Quieter frequencies. Play these when nobody's home,
+          or when someone is and you'd rather they weren't.
+        </p>
+      </div>
+
+      <ol class="track-list">
+        <li class="track track-pinned" data-track="cold-on-the-estate">
+          <div class="track-num">★</div>
+          <button class="track-play" type="button" aria-label="Play Cold On The Estate">▶</button>
+          <div class="track-info">
+            <div class="track-title">Cold On The Estate</div>
+            <div class="track-sub">PINNED · LYRICS BY OPERATIVE</div>
+          </div>
+          <span class="track-tag">FIELD LYRIC</span>
+          <div class="track-len">04:02</div>
+          <div class="track-embed">
+            <div class="track-streaming-pending">STREAMING · PENDING CLEARANCE</div>
+          </div>
+        </li>
+
+        <li class="track" data-track="quiet-people">
+          <div class="track-num">02</div>
+          <button class="track-play" type="button" aria-label="Play Quiet People">▶</button>
+          <div class="track-info">
+            <div class="track-title">Quiet People</div>
+            <div class="track-sub">OFFICIAL RECORD</div>
+          </div>
+          <span class="track-tag">FIELD LYRIC</span>
+          <div class="track-len">03:27</div>
+          <div class="track-embed">
+            <div class="track-streaming-pending">STREAMING · PENDING CLEARANCE</div>
+          </div>
+        </li>
+      </ol>
+
+      <p class="tracks-fine">
+        More tracks pending clearance. Streaming links go live once the platforms wake up.
+        For direct requests, transmit to <a href="mailto:realmcertified@gmail.com">hq@shadowrealmhq.com</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="assets/logo-crown.png" alt="Realm HQ crest" />
+          <p>Shadow Realm HQ. Officially unofficial. Dispatched from NSW at hours that don't exist. Realm Certified since EST Day 5.</p>
+        </div>
+        <div class="footer-col">
+          <h5>REALM</h5>
+          <a href="shop.html">Shop</a>
+          <a href="vault.html">Vault</a>
+          <a href="terminal.html">Terminal</a>
+          <a href="index.html#personnel">Personnel</a>
+          <a href="certification.html">Certification</a>
+        </div>
+        <div class="footer-col">
+          <h5>SIGNAL</h5>
+          <a href="music.html">Music</a>
+          <a href="index.html#feed">Live Feed</a>
+          <a href="mailto:realmcertified@gmail.com">Contact</a>
+          <a href="https://www.instagram.com/realmcertified" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.tiktok.com/@realmcertified?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener">TikTok</a>
+          <a href="https://youtube.com/@realmcertified?si=S3xlFrRtA6tF_HmO" target="_blank" rel="noopener">YouTube</a>
+        </div>
+        <div class="footer-col">
+          <h5>FINE PRINT</h5>
+          <a href="policy/shipping.html">Shipping</a>
+          <a href="policy/returns.html">Returns</a>
+          <a href="policy/terms.html">Terms</a>
+          <a href="policy/privacy.html">Privacy</a>
+        </div>
+      </div>
+      <div class="footer-bot">
+        <span>© SHADOW REALM · REALM CERTIFIED · EST DAY 5</span>
+        <span>hq@shadowrealmhq.com</span>
+      </div>
+    </div>
+  </footer>
+
+</main>
+
+<script src="assets/js/realm.js"></script>
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/page-music.js"></script>
+<script src="assets/js/fx.js" defer></script>
+<script src="assets/js/fx2.js" defer></script>
+<script src="assets/js/fx3.js" defer></script>
+<script src="assets/js/fx4.js" defer></script>
+<script src="assets/js/fx5.js" defer></script>
+</body>
+</html>
