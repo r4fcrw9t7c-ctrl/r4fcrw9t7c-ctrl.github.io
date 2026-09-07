@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; object-src 'none'; script-src 'self'; script-src-attr 'none'; style-src 'self' https://fonts.googleapis.com; style-src-attr 'none'; img-src 'self'; font-src 'self' https://fonts.gstatic.com; connect-src https://exujdeqbxjjqnigqphgr.supabase.co; form-action 'none'; frame-src 'none'; worker-src 'none'; media-src 'none'; manifest-src 'none'">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#050506">
+  <title>Owner Command · Realm HQ</title>
+  <meta name="description" content="Realm HQ internal owner moderation console.">
+  <!-- Runs before other assets so incoming access credentials leave the URL immediately. -->
+  <script src="/assets/js/page-admin.js"></script>
+  <link rel="icon" href="/assets/favicon-64.png" type="image/png">
+  <link rel="canonical" href="https://shadowrealmhq.com/admin">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/admin.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to command</a>
+  <header class="masthead">
+    <div class="masthead-inner">
+      <a href="/" class="brand" aria-label="Realm HQ home">
+        <img src="/assets/logo-crown.png" alt="" width="53" height="36">
+        <span>REALM HQ<span class="brand-sub">OWNER OPERATIONS</span></span>
+      </a>
+      <span class="classification">RESTRICTED / 05</span>
+      <button id="logout" class="button button-quiet" type="button" hidden>Log out</button>
+    </div>
+  </header>
+  <main id="main" class="shell" tabindex="-1">
+    <div class="page-heading">
+      <div><p class="eyebrow">SHADOW REALM / INTERNAL DESK</p><h1>Command.</h1></div>
+      <p id="session-label" class="session-label">Owner clearance required.</p>
+    </div>
+
+    <section id="access-panel" class="access-layout" aria-label="Owner access">
+      <div class="access-card">
+        <p class="eyebrow">AUTHENTICATION / EMAIL LINK</p>
+        <p id="preview-warning" class="notice" hidden><strong>Preview only.</strong> <a href="https://shadowrealmhq.com/admin" target="_blank" rel="noopener noreferrer">Open live Command to sign in.</a></p>
+        <div id="login-panel">
+          <h2>Owner access only.</h2>
+          <p class="muted">Request an access link. Clearance is checked by Realm HQ, not this browser.</p>
+          <form id="login-form" class="stack" autocomplete="off">
+            <div class="field"><label for="login-email">Email address</label><input id="login-email" name="email" type="email" autocomplete="email" inputmode="email" maxlength="254" required aria-describedby="login-hint"></div>
+            <button id="login-submit" class="button button-primary" type="submit" disabled>Send access link</button>
+          </form>
+          <p id="login-status" class="notice" role="status" hidden></p>
+          <p id="login-hint" class="hint">This session lives in this tab only. Reloading or closing it may require a new email link. Nothing is saved in browser storage.</p>
+          <details id="access-link-disclosure" class="access-link-disclosure">
+            <summary>Use access link</summary>
+            <p class="hint">Email opened elsewhere? Paste the full Realm HQ admin link here. Never share your access link.</p>
+            <form id="access-link-form" class="stack" autocomplete="off">
+              <div class="field"><label for="access-link">Access link</label><input id="access-link" name="access-link" type="password" autocomplete="off" spellcheck="false" autocapitalize="none" required maxlength="8192" aria-describedby="access-link-hint access-link-error"><p id="access-link-hint" class="hint">Only https://shadowrealmhq.com/admin or /admin.html links are accepted.</p></div>
+              <p id="access-link-error" class="error-text" role="alert" hidden></p>
+              <button id="access-link-submit" class="button" type="submit" disabled>Verify access link</button>
+            </form>
+          </details>
+        </div>
+        <div id="verifying-panel" hidden>
+          <h2 id="verifying-title" tabindex="-1">Checking access.</h2>
+          <p id="verifying-status" class="muted" role="status">Verifying your email link securely…</p>
+          <div class="gate-skeleton" aria-hidden="true"><span class="skeleton"></span><span class="skeleton"></span><span class="skeleton"></span></div>
+        </div>
+        <div id="restricted-panel" hidden>
+          <h2 id="restricted-title" tabindex="-1">Access restricted.</h2>
+          <p class="muted">This account is not authorised for the owner console. No moderation data has been loaded.</p>
+          <button id="restricted-reset" class="button" type="button">Use another email</button>
+        </div>
+        <div id="boot-error-panel" hidden>
+          <h2 id="boot-error-title" tabindex="-1">Command is unavailable.</h2>
+          <p id="boot-error-message" class="error-text" role="alert">We could not check owner clearance. No data is displayed. Check your connection and try again.</p>
+          <div class="button-row"><button id="boot-retry" class="button button-primary" type="button">Retry connection</button><button id="boot-reset" class="button" type="button">End this session</button></div>
+        </div>
+      </div>
+      <aside class="access-brief" aria-label="Console access policy">
+        <p class="eyebrow">OPERATING PROTOCOL</p>
+        <h2>Keep the Realm in order.</h2>
+        <ol class="protocol-list"><li><span>01</span><div>Owner-only access.<p>Active owner clearance is verified on every request.</p></div></li><li><span>02</span><div>Every change leaves a record.<p>Confirm the target. State your reason. File it.</p></div></li><li><span>03</span><div>Billing stays separate.<p>Moderation does not change payment plans.</p></div></li></ol>
+        <p class="brief-seal">REALM CERTIFIED / INTERNAL USE ONLY</p>
+      </aside>
+    </section>
+
+    <section id="console" aria-label="Moderation console" hidden>
+      <nav class="tab-nav" aria-label="Command sections">
+        <div id="tabs" class="tabs" role="tablist" aria-label="Moderation sections">
+          <button id="tab-overview" type="button" role="tab" aria-selected="true" aria-controls="workspace" data-tab="overview">Overview</button>
+          <button id="tab-members" type="button" role="tab" aria-selected="false" aria-controls="workspace" tabindex="-1" data-tab="members">Members</button>
+          <button id="tab-wall" type="button" role="tab" aria-selected="false" aria-controls="workspace" tabindex="-1" data-tab="wall">Wall</button>
+          <button id="tab-transmissions" type="button" role="tab" aria-selected="false" aria-controls="workspace" tabindex="-1" data-tab="transmissions">Transmissions</button>
+          <button id="tab-contacts" type="button" role="tab" aria-selected="false" aria-controls="workspace" tabindex="-1" data-tab="contacts">Inbox</button>
+          <button id="tab-audit" type="button" role="tab" aria-selected="false" aria-controls="workspace" tabindex="-1" data-tab="audit">Activity</button>
+        </div>
+      </nav>
+      <div id="workspace" role="tabpanel" aria-labelledby="tab-overview" tabindex="0">
+        <div class="workspace-heading"><div><h2 id="view-title">Overview</h2><p id="view-description" class="muted">The Realm, at a glance.</p></div><button id="refresh" type="button" class="button">Refresh</button></div>
+        <p id="workspace-status" class="notice" role="status" hidden></p>
+        <form id="list-controls" class="list-controls" role="search" hidden>
+          <div id="search-field" class="field"><label id="search-label" for="search">Search by email</label><input id="search" type="search" name="search" autocomplete="off" maxlength="200" placeholder="Search email…"></div>
+          <div class="field"><label for="filter">Show</label><select id="filter" name="filter"><option value="all">All records</option></select></div>
+          <button id="clear-filters" class="button button-quiet" type="button">Clear filters</button>
+        </form>
+        <div id="content" aria-busy="false"></div>
+        <div id="pagination" class="pagination" hidden><p id="page-summary" class="hint" role="status"></p><div class="button-row"><button id="previous" class="button" type="button">Previous</button><button id="next" class="button" type="button">Next</button></div></div>
+        <p id="last-updated" class="last-updated"></p>
+      </div>
+    </section>
+    <noscript><p class="notice">JavaScript is required for secure owner access. Enable it, then reopen your email link. No data has been loaded.</p></noscript>
+  </main>
+  <footer class="footer"><span>INTERNAL USE ONLY / EST DAY 5</span><span>REALM HQ — OWNER COMMAND</span></footer>
+
+  <dialog id="details-dialog" class="drawer" aria-labelledby="details-title">
+    <div class="dialog-heading"><div><p id="details-resource" class="eyebrow">RECORD</p><h2 id="details-title">Record details</h2></div><button id="details-close" class="button button-quiet" type="button" autofocus>Close</button></div>
+    <p id="details-target" class="record-target"></p>
+    <div id="details-actions" class="button-row"></div>
+    <div id="details-content"></div>
+    <p class="hint">Record snapshot. Refresh the list to retrieve the latest version.</p>
+  </dialog>
+
+  <dialog id="confirm-dialog" class="confirmation" aria-labelledby="confirm-title" aria-describedby="confirm-intent confirm-warning">
+    <form id="confirm-form" novalidate>
+      <p class="eyebrow">CONFIRM / AUDIT REQUIRED</p><h2 id="confirm-title">Confirm change</h2>
+      <div class="target-block"><p class="field-label">Exact target</p><p id="confirm-target" class="record-target"></p><p id="confirm-id" class="hint"></p></div>
+      <p id="confirm-intent" class="intended-state"></p><p id="confirm-warning" class="notice" hidden></p>
+      <div id="note-field" class="field" hidden><label for="moderation-note">Internal moderation note</label><textarea id="moderation-note" name="moderation-note" maxlength="1000" rows="5" aria-describedby="note-hint"></textarea><p id="note-hint" class="hint">Up to 1,000 characters. Notes do not change member status or billing. An empty note clears the existing note.</p></div>
+      <div class="field"><label for="reason">Reason for this change <span class="required">(required)</span></label><textarea id="reason" name="reason" minlength="3" maxlength="500" rows="3" required aria-describedby="reason-hint confirm-error"></textarea><p id="reason-hint" class="hint">3–500 characters. Saved to the activity record.</p></div>
+      <p id="confirm-error" class="error-text" role="alert" hidden></p>
+      <p id="confirm-progress" class="hint" role="status" hidden>Saving change. Keep this tab open…</p>
+      <div class="dialog-footer"><button id="confirm-cancel" class="button" type="button">Cancel</button><button id="confirm-refresh" class="button" type="button" hidden>Refresh records</button><button id="confirm-save" class="button button-primary" type="submit">Save change</button></div>
+    </form>
+  </dialog>
+</body>
+</html>

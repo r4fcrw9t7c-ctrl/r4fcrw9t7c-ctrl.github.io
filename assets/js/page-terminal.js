@@ -42,6 +42,14 @@
     document.getElementById('tierTag').textContent = 'CLEARANCE · ' + String(m.tier||'').toUpperCase().replace('_',' ');
     document.getElementById('dashHello').textContent = m.username ? ('Operative ' + m.username + '.') : 'Operative record.';
     document.getElementById('mEmail').textContent = m.email || '·';
+    var ownerLink = document.getElementById('ownerCommandLink');
+    if (m.is_admin && !ownerLink) {
+      ownerLink = document.createElement('a');
+      ownerLink.id = 'ownerCommandLink'; ownerLink.href = '/admin'; ownerLink.className = 'btn ghost';
+      ownerLink.textContent = 'HQ COMMAND · OWNER';
+      document.getElementById('dashPanel').appendChild(ownerLink);
+    }
+    if (!m.is_admin && ownerLink) ownerLink.remove();
     document.getElementById('mTier').textContent = String(m.tier||'grunt').toUpperCase().replace('_',' ');
     document.getElementById('mVault').textContent = m.vault_access ? 'UNSEALED' : 'SEALED';
     document.getElementById('mVault').className = 'v' + (m.vault_access ? ' gold':'');
@@ -72,6 +80,11 @@
 
     var billingPanel=document.getElementById('billingPanel');
     if(!m.has_billing){ document.getElementById('billingBtn').classList.add('hidden'); }
+    if(m.moderation_status === 'suspended'){
+      document.getElementById('vaultHead').textContent = 'Access suspended.';
+      document.getElementById('vaultText').textContent = 'HQ has suspended restricted access. Your payment plan is unchanged. Billing and cancellation remain available below. Contact HQ for a review.';
+      document.getElementById('mRefText').textContent = 'Restricted access is suspended. Referrals do not override moderation.';
+    }
   }
 
   document.getElementById('logoutBtn').addEventListener('click', function(){
